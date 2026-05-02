@@ -1,0 +1,3442 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#c4787e">
+<title>ByBangs Women</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+:root {
+  --teal: #c4787e;
+  --teal-dark: #a85f65;
+  --teal-light: #e0a0a8;
+  --gold: #7a9e7e;
+  --gold-light: #a0c4a4;
+  --white: #3d2027;
+  --bg: #fdf6f8;
+  --card: #ffffff;
+  --card2: #fce8ec;
+  --border: rgba(196,120,126,0.2);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: #fdf6f8;
+  color: #3d2027;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── PAGES ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: flex; flex-direction: column; }
+
+/* ── HERO ── */
+#page-home {
+  background: linear-gradient(160deg, #fde0e8 0%, #fdf6f8 55%, #fce4ed 100%);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 1.5rem calc(8rem + env(safe-area-inset-bottom));
+  position: relative;
+  overflow: hidden;
+}
+
+#page-home::before {
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 60% 20%, rgba(196,120,126,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(122,158,126,0.04) 0%, transparent 50%);
+}
+
+.hero-stars { display:flex; gap:.4rem; justify-content:center; margin-bottom:.8rem; }
+.hero-stars span { color:#111111; font-size:.9rem; }
+
+.hero-label {
+  font-size:.6rem; letter-spacing:.4em; color:rgba(196,120,126,0.7);
+  text-transform:uppercase; margin-bottom:1rem;
+}
+
+.hero-logo {
+  font-family:'Dancing Script',cursive;
+  font-size: clamp(4rem, 20vw, 7rem);
+  font-weight:700; line-height:.9;
+  color:#c4787e;
+  text-shadow: none;
+  letter-spacing:-.02em;
+  animation: popIn .8s cubic-bezier(.175,.885,.32,1.275) both;
+}
+
+.hero-sub {
+  font-size:.65rem; letter-spacing:.55em; color:#7a9e7e;
+  text-transform:uppercase; margin-top:.5rem;
+  animation: fadeUp .7s .3s ease both;
+}
+
+.hero-divider {
+  width:50px; height:1px;
+  background: linear-gradient(90deg, transparent, #c4787e, transparent);
+  margin:1.5rem auto;
+  animation: fadeUp .7s .4s ease both;
+}
+
+.hero-desc {
+  font-size:.8rem; color:rgba(122,158,126,0.8);
+  letter-spacing:.05em; margin-bottom:2.5rem;
+  animation: fadeUp .7s .5s ease both;
+}
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:.6rem;
+  padding:1rem 2.2rem;
+  background: linear-gradient(135deg, #c4787e, #a85f65);
+  color:#ffffff; text-decoration:none;
+  font-size:.75rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  border:none; cursor:pointer;
+  border:1px solid rgba(0,0,0,0.1);
+  transition: all .3s;
+  animation: fadeUp .7s .6s ease both;
+  font-family:'DM Sans',sans-serif;
+}
+.btn-primary:hover { background:linear-gradient(135deg, #d48890, #c4787e); transform:translateY(-2px); box-shadow:0 12px 35px rgba(0,0,0,0.1); }
+
+.hero-info {
+  display:flex; gap:2rem; justify-content:center; margin-top:3rem;
+  animation: fadeUp .7s .7s ease both;
+}
+.hero-info-item { text-align:center; }
+.hero-info-item .val { font-family:'Playfair Display',serif; font-size:1.3rem; color:#c4787e; }
+.hero-info-item .lbl { font-size:.55rem; letter-spacing:.15em; color:rgba(196,120,126,0.5); text-transform:uppercase; margin-top:.2rem; }
+
+/* ── NAV ── */
+.bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; z-index:100;
+  background: rgba(255,248,250,0.97);
+  backdrop-filter: blur(20px);
+  border-top:1px solid rgba(196,120,126,0.15);
+  display:flex; justify-content:space-around; align-items:center;
+  padding:.8rem 0 calc(1.5rem + env(safe-area-inset-bottom));
+  min-height: 80px;
+}
+
+.nav-item {
+  display:flex; flex-direction:column; align-items:center; gap:.3rem;
+  background:none; border:none; cursor:pointer; color:rgba(0,0,0,0.3);
+  font-family:'DM Sans',sans-serif; font-size:.55rem; letter-spacing:.1em;
+  text-transform:uppercase; transition: color .2s;
+  padding:.2rem .8rem;
+}
+.nav-item.active { color:#c4787e; }
+.nav-item svg { width:20px; height:20px; }
+
+/* ── BOOKING PAGE ── */
+#page-booking, #page-hours, #page-boutique { background:#fdf6f8; padding-bottom:calc(8rem + env(safe-area-inset-bottom)); }
+
+.page-header {
+  padding:2.5rem 1.5rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  background: #fdf6f8;
+}
+.page-header .label { font-size:.6rem; letter-spacing:.35em; color:#c4787e; text-transform:uppercase; margin-bottom:.4rem; }
+.page-header h1 { font-family:'Playfair Display',serif; font-size:1.8rem; }
+
+/* Steps */
+.steps {
+  display:flex; align-items:center; justify-content:center;
+  gap:0; padding:1.5rem;
+}
+.step {
+  display:flex; flex-direction:column; align-items:center; gap:.3rem;
+  flex:1;
+}
+.step-circle {
+  width:32px; height:32px; border-radius:50%;
+  border:2px solid rgba(0,0,0,0.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.7rem; font-weight:600; color:rgba(0,0,0,0.3);
+  transition: all .3s;
+}
+.step.active .step-circle { border-color:#c4787e; color:#c4787e; background:rgba(196,120,126,0.08); }
+.step.done .step-circle { border-color:#c4787e; background:#c4787e; color:white; }
+.step-label { font-size:.55rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(0,0,0,0.3); }
+.step.active .step-label { color:#c4787e; }
+.step-line { flex:1; height:1px; background:rgba(0,0,0,0.1); margin-bottom:1.2rem; }
+.step-line.done { background:#c4787e; }
+
+/* Step content */
+.step-content { padding:0 1.5rem; display:none; }
+.step-content.active { display:block; }
+
+/* Services */
+.services-list { display:flex; flex-direction:column; gap:.8rem; margin-top:1rem; }
+
+.service-card {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.2rem;
+  background:#ffffff;
+  border:1px solid var(--border);
+  cursor:pointer; transition: all .2s;
+}
+.service-card:hover, .service-card.selected {
+  border-color:#c4787e;
+  background:#fce8ec;
+}
+.service-card.selected { border-color:#c4787e; }
+
+.service-info { display:flex; align-items:center; gap:.9rem; }
+.service-emoji { font-size:1.4rem; }
+.service-name { font-size:.85rem; font-weight:600; }
+.service-duration { font-size:.65rem; color:rgba(0,0,0,0.4); margin-top:.15rem; }
+.service-price { font-family:'Playfair Display',serif; font-size:1.1rem; color:#c4787e; }
+
+/* Calendar */
+.calendar-wrap { margin-top:1rem; }
+.cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+.cal-nav button { background:none; border:1px solid var(--border); color:#111111; width:36px; height:36px; cursor:pointer; font-size:.9rem; transition:.2s; }
+.cal-nav button:hover { border-color:#c4787e; }
+.cal-month { font-family:'Playfair Display',serif; font-size:1.1rem; }
+
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+.cal-day-name { text-align:center; font-size:.55rem; letter-spacing:.1em; color:rgba(0,0,0,0.3); text-transform:uppercase; padding:.4rem 0; }
+
+.cal-day {
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; cursor:pointer; border:1px solid transparent;
+  transition: all .2s; border-radius:2px;
+}
+.cal-day:hover:not(.disabled):not(.empty) { border-color:#c4787e; background:rgba(196,120,126,0.08); }
+.cal-day.selected { background:#c4787e; border-color:#c4787e; color:#ffffff !important; }
+.cal-day.today { color:#c4787e; font-weight:600; }
+.cal-day.disabled { color:rgba(0,0,0,0.15); cursor:not-allowed; }
+.cal-day.empty { cursor:default; }
+
+/* Time slots */
+.slots-wrap { margin-top:1.5rem; }
+.slots-title { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(0,0,0,0.4); margin-bottom:.8rem; }
+.slots-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; }
+.slot {
+  padding:.7rem; text-align:center; font-size:.8rem; color:#3d2027;
+  background:#fce8ec; border:1px solid var(--border);
+  cursor:pointer; transition: all .2s;
+}
+.slot:hover:not(.booked) { border-color:#c4787e; background:#fbd8de; }
+.slot.selected { background:#c4787e; border-color:#c4787e; color:#ffffff; }
+.slot.booked { background:#fce4e8; color:rgba(196,120,126,0.3); cursor:not-allowed; text-decoration:line-through; }
+
+/* Form */
+.form-group { margin-bottom:1.2rem; }
+.form-label { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(0,0,0,0.5); margin-bottom:.5rem; display:block; }
+.form-input {
+  width:100%; padding:.9rem 1rem;
+  background:#ffffff; border:1px solid var(--border);
+  color:#111111; font-family:'DM Sans',sans-serif; font-size:.9rem;
+  outline:none; transition: border .2s;
+  -webkit-appearance:none;
+}
+.form-input:focus { border-color:#c4787e; }
+
+/* Summary card */
+.summary-card {
+  background:#ffffff; border:1px solid var(--border);
+  padding:1.5rem; margin-bottom:1.5rem;
+}
+.summary-row { display:flex; justify-content:space-between; padding:.6rem 0; border-bottom:1px solid rgba(0,0,0,0.05); }
+.summary-row:last-child { border-bottom:none; }
+.summary-key { font-size:.7rem; color:rgba(0,0,0,0.4); text-transform:uppercase; letter-spacing:.1em; }
+.summary-val { font-size:.85rem; font-weight:500; }
+
+/* Next btn */
+.btn-next {
+  width:100%; padding:1rem;
+  background:linear-gradient(135deg, #c4787e, #a85f65); color:#ffffff;
+  border:none; cursor:pointer; font-family:'DM Sans',sans-serif;
+  font-size:.8rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  margin-top:1.5rem; transition: all .3s;
+}
+.btn-next:hover { background:linear-gradient(135deg, #d48890, #c4787e); }
+.btn-next:disabled { background:rgba(196,120,126,0.15); color:rgba(196,120,126,0.4); cursor:not-allowed; }
+
+.btn-back {
+  background:none; border:1px solid var(--border); color:rgba(0,0,0,0.5);
+  padding:.7rem 1.5rem; cursor:pointer; font-family:'DM Sans',sans-serif;
+  font-size:.75rem; letter-spacing:.1em; margin-top:.8rem; transition:.2s;
+}
+.btn-back:hover { border-color:#c4787e; color:#c4787e; }
+
+/* Success */
+.success-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  text-align:center; padding:3rem 1.5rem;
+}
+.success-icon { font-size:3.5rem; margin-bottom:1.5rem; animation: popIn .6s ease both; }
+.success-wrap h2 { font-family:'Playfair Display',serif; font-size:2rem; margin-bottom:.8rem; }
+.success-wrap p { font-size:.85rem; color:rgba(0,0,0,0.5); margin-bottom:2rem; }
+
+/* ── MY BOOKINGS ── */
+.bookings-list { padding:1rem 1.5rem; display:flex; flex-direction:column; gap:1rem; }
+.booking-card {
+  background:#ffffff; border:1px solid var(--border); padding:1.2rem;
+  border-left:3px solid #c4787e;
+}
+.booking-card .bc-service { font-weight:600; font-size:.95rem; margin-bottom:.4rem; }
+.booking-card .bc-date { font-size:.75rem; color:#c4787e; margin-bottom:.3rem; }
+.booking-card .bc-name { font-size:.7rem; color:rgba(0,0,0,0.4); }
+.booking-card .bc-status {
+  display:inline-block; margin-top:.6rem;
+  padding:.2rem .7rem; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase;
+  background:rgba(0,0,0,0.08); border:1px solid rgba(0,0,0,0.2); color:#444444;
+}
+.empty-state { text-align:center; padding:4rem 2rem; color:rgba(0,0,0,0.3); }
+.empty-state .icon { font-size:3rem; margin-bottom:1rem; }
+
+/* ── HOURS PAGE ── */
+.hours-content { padding:1.5rem; }
+.hours-card {
+  background:#ffffff; border:1px solid var(--border); padding:1.5rem;
+  border-left:3px solid #c4787e; margin-bottom:1.5rem;
+}
+.hours-row { display:flex; justify-content:space-between; padding:.8rem 0; border-bottom:1px solid rgba(0,0,0,0.05); }
+.hours-row:last-child { border-bottom:none; }
+.hours-day { font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(0,0,0,0.5); }
+.hours-time { font-family:'Playfair Display',serif; font-size:1rem; color:#c4787e; }
+
+.contact-list { display:flex; flex-direction:column; gap:.8rem; }
+.contact-card {
+  display:flex; align-items:center; gap:1rem;
+  background:#ffffff; border:1px solid var(--border); padding:1.1rem;
+  text-decoration:none; color:#111111; transition:.2s;
+}
+.contact-card:hover { border-color:#c4787e; }
+.contact-icon { width:38px; height:38px; background:rgba(196,120,126,0.12); border:1px solid rgba(196,120,126,0.2); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.contact-lbl { font-size:.6rem; color:rgba(196,120,126,0.7); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.2rem; }
+.contact-val { font-size:.85rem; font-weight:500; }
+
+/* ── LOADER ── */
+.loader { display:flex; justify-content:center; padding:2rem; }
+.spinner { width:28px; height:28px; border:2px solid rgba(196,120,126,0.2); border-top-color:#c4787e; border-radius:50%; animation:spin .7s linear infinite; }
+
+/* ── TOAST ── */
+.toast {
+  position:fixed; bottom:5.5rem; left:1rem; right:1rem; z-index:200;
+  padding:1rem 1.2rem; font-size:.85rem; font-weight:500;
+  transform:translateY(20px); opacity:0;
+  transition: all .3s;
+  pointer-events:none;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.success { background:#6b2d3a; border:1px solid #c4787e; color:#ffd0da; }
+.toast.error { background:#4a1a1a; border:1px solid #7a2a2a; color:#ffaaaa; }
+
+/* ── ADMIN CARDS ── */
+.admin-card {
+  background:#ffffff; border:1px solid var(--border); padding:1.2rem;
+  border-left:3px solid #c4787e;
+}
+.admin-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.8rem; }
+.admin-service { font-weight:600; font-size:.95rem; margin-bottom:.3rem; }
+.admin-datetime { font-size:.7rem; color:#111111; }
+.admin-client { display:flex; justify-content:space-between; font-size:.75rem; color:rgba(0,0,0,0.5); margin-bottom:.8rem; }
+.admin-actions { display:flex; gap:.6rem; }
+.btn-cancel { flex:1; padding:.6rem; background:rgba(255,100,100,0.1); border:1px solid rgba(255,100,100,0.3); color:#ff8080; font-size:.7rem; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.btn-delete { flex:1; padding:.6rem; background:rgba(255,50,50,0.1); border:1px solid rgba(255,50,50,0.3); color:#ff5555; font-size:.7rem; cursor:pointer; font-family:'DM Sans',sans-serif; }
+.bc-status.cancelled { background:rgba(255,100,100,0.1); border-color:rgba(255,100,100,0.3); color:#ff8080; }
+
+/* ── BARBERS ── */
+.barbers-list { display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:.6rem; }
+.barber-card {
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  padding:1rem; background:#ffffff; border:1px solid var(--border);
+  cursor:pointer; transition: all .2s;
+}
+.barber-card:hover, .barber-card.selected { border-color:#c4787e; background:#fce8ec; }
+.barber-avatar { width:72px; height:72px; border-radius:50%; background:rgba(196,120,126,0.15); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.8rem; }
+.barber-card.selected .barber-avatar { border-color:#c4787e; }
+.barber-name { font-size:.8rem; font-weight:600; text-transform:capitalize; }
+
+/* ── TV MODE ── */
+#tv-mode {
+  display:none; position:fixed; inset:0; z-index:999;
+  background:#fdf6f8; padding:1rem;
+  flex-direction:column;
+}
+#tv-mode.active { display:flex; }
+.tv-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:.5rem 1rem 1rem; border-bottom:1px solid var(--border); margin-bottom:1rem;
+}
+.tv-header h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:#111111; }
+.tv-grid { flex:1; overflow-y:auto; border:1px solid rgba(196,120,126,0.3); background:#fce8ec; }
+.tv-col { background:#fff0f3; border:1px solid rgba(196,120,126,0.3); border-top:3px solid #c4787e; display:flex; flex-direction:column; overflow:hidden; }
+.tv-col-header { padding:.8rem; text-align:center; border-bottom:1px solid var(--border); }
+.tv-col-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:#111111; }
+.tv-col-count { font-size:.6rem; color:rgba(0,0,0,0.4); letter-spacing:.1em; text-transform:uppercase; margin-top:.2rem; }
+.tv-col-body { flex:1; overflow-y:auto; padding:.5rem; display:flex; flex-direction:column; gap:.5rem; }
+.tv-card { background:#fce8ec; border:1px solid rgba(196,120,126,0.3); border-left:3px solid #c4787e; padding:.7rem; }
+.tv-card.cancelled { border-left-color:#ff5555; border-color:rgba(255,85,85,0.3); background:#fee2e2; opacity:.5; }
+.tv-card-time { font-family:'Playfair Display',serif; font-size:1.1rem; color:#111111; }
+.tv-card-name { font-size:.8rem; font-weight:600; margin-top:.2rem; }
+.tv-card-service { font-size:.65rem; color:rgba(0,0,0,0.5); margin-top:.15rem; }
+.tv-refresh-bar { height:3px; background:rgba(0,0,0,0.08); margin-top:.5rem; }
+.tv-refresh-progress { height:100%; background:#c4787e; transition: width 30s linear; width:0%; }
+.cal-day.blocked { background:rgba(255,80,80,0.08); color:#ff8080 !important; cursor:not-allowed; border-color:rgba(255,80,80,0.2); }
+
+@keyframes fadeUp { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.5; } }
+</style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN -->
+<div id="splash" style="position:fixed;inset:0;background:linear-gradient(160deg,#fde0e8,#fdf6f8,#fce4ed);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+  <div id="splash-logo" style="opacity:0;transform:scale(0.6);transition:opacity .6s ease, transform .6s cubic-bezier(0.34,1.56,0.64,1)">
+    <div style="font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;letter-spacing:.15em;font-family:'Dancing Script',cursive;background:linear-gradient(135deg,#c4787e,#a85f65,#c4787e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center">ByBangs</div>
+    <div style="text-align:center;letter-spacing:.5em;font-size:.6rem;color:#7a9e7e;text-transform:uppercase;margin-top:.3rem">WOMEN</div>
+  </div>
+  <div id="splash-bar" style="width:0px;height:1px;background:linear-gradient(90deg,transparent,#c4787e,transparent);transition:width 1.2s ease;margin-top:1rem"></div>
+</div>
+
+<style>
+  #splash.hide {
+    opacity: 0;
+    transition: opacity .4s ease .2s;
+    pointer-events: none;
+  }
+</style>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- PAGE: HOME -->
+<div class="page active" id="page-home">
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%">
+    <div class="hero-stars"><span>★</span><span>★</span><span>★</span></div>
+    <p class="hero-label">Salon de beauté féminin</p>
+    <h1 class="hero-logo">ByBangs</h1>
+    <p class="hero-sub">Women</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Beauté · Élégance · Féminité</p>
+    <button class="btn-primary" id="btn-hero">
+      ✨ Réserver maintenant
+    </button>
+
+    <!-- LIVE QUEUE -->
+    <div id="live-queue" style="width:100%;padding:0 1rem;margin-top:.8rem;box-sizing:border-box">
+      <div style="background:#ffffff;border:1px solid rgba(0,0,0,0.1);overflow:hidden">
+        <div style="font-size:.5rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;padding:.6rem;text-align:center;border-bottom:1px solid rgba(196,120,126,0.12)">🔴 Live — File d'attente</div>
+        <div id="my-ticket-banner" style="padding:0 .5rem"></div>
+        <div id="queue-content" style="padding:.5rem"></div>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div class="hero-info-item">
+        <div class="val">10h</div>
+        <div class="lbl">Ouverture</div>
+      </div>
+      <div class="hero-info-item">
+        <div class="val">22h30</div>
+        <div class="lbl">Fermeture</div>
+      </div>
+      <div class="hero-info-item">
+        <div class="val">6j/7</div>
+        <div class="lbl">Disponible</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <div style="padding:1.5rem;width:100%;box-sizing:border-box">
+    <div style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:1rem;text-align:center">🛍 Nos Produits | منتجاتنا</div>
+    <div id="products-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"></div>
+  </div>
+</div>
+<div class="page" id="page-booking">
+  <div class="page-header">
+    <div class="label">Nouveau rendez-vous</div>
+    <h1>Réservation</h1>
+  </div>
+
+  <!-- Steps indicator -->
+  <div class="steps">
+    <div class="step active" id="step-ind-1">
+      <div class="step-circle">1</div>
+      <div class="step-label">Service</div>
+    </div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step" id="step-ind-2">
+      <div class="step-circle">2</div>
+      <div class="step-label">Date</div>
+    </div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step" id="step-ind-3">
+      <div class="step-circle">3</div>
+      <div class="step-label">Info</div>
+    </div>
+    <div class="step-line" id="line-3"></div>
+    <div class="step" id="step-ind-4">
+      <div class="step-circle">4</div>
+      <div class="step-label">Confirm</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: Service -->
+  <div class="step-content active" id="step-1">
+    <div id="services-banner" style="display:none;background:#c4787e;color:#ffffff;padding:.8rem 1.2rem;margin-bottom:.8rem;border-left:3px solid #ffffff"></div>
+    <div class="services-list" id="services-list"></div>
+    <div style="margin-top:1.5rem">
+      <label class="form-label" style="color:#111111;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase">Choisir la coiffeuse | اختاري المصففة</label>
+      <div class="barbers-list" id="barbers-list"></div>
+    </div>
+    <button class="btn-next" id="btn-next-1" disabled>Choisir la date →</button>
+  </div>
+
+  <!-- STEP 2: Date & Time -->
+  <div class="step-content" id="step-2">
+    <div class="calendar-wrap">
+      <div class="cal-nav">
+        <button id="btn-prev-month">‹</button>
+        <span class="cal-month" id="cal-month"></span>
+        <button id="btn-next-month">›</button>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+    </div>
+    <div class="slots-wrap" id="slots-wrap" style="display:none">
+      <div class="slots-title">Créneaux disponibles</div>
+      <div class="slots-grid" id="slots-grid"></div>
+    </div>
+    <button class="btn-next" id="btn-next-2" disabled>Continuer →</button>
+    <br><button class="btn-back" id="btn-back-2">← Retour</button>
+  </div>
+
+  <!-- STEP 3: Info client -->
+  <div class="step-content" id="step-3">
+    <div class="form-group">
+      <label class="form-label">Votre nom complet</label>
+      <input class="form-input" id="inp-name" type="text" placeholder="Ex: Ahmed Benali">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Numéro de téléphone</label>
+      <input class="form-input" id="inp-phone" type="tel" placeholder="Ex: 0551258141">
+    </div>
+    <button class="btn-next" id="btn-next-3" disabled>Voir le résumé →</button>
+    <br><button class="btn-back" id="btn-back-3">← Retour</button>
+  </div>
+
+  <!-- STEP 4: Confirmation -->
+  <div class="step-content" id="step-4">
+    <div class="summary-card">
+      <div class="summary-row"><span class="summary-key">Service</span><span class="summary-val" id="sum-service">—</span></div>
+      <div class="summary-row"><span class="summary-key">Coiffeuse</span><span class="summary-val" id="sum-barber">—</span></div>
+      <div class="summary-row"><span class="summary-key">Date</span><span class="summary-val" id="sum-date">—</span></div>
+      <div class="summary-row"><span class="summary-key">Heure</span><span class="summary-val" id="sum-time">—</span></div>
+      <div class="summary-row"><span class="summary-key">Nom</span><span class="summary-val" id="sum-name">—</span></div>
+      <div class="summary-row"><span class="summary-key">Téléphone</span><span class="summary-val" id="sum-phone">—</span></div>
+      <div class="summary-row"><span class="summary-key">Prix</span><span class="summary-val" id="sum-price" style="color:#c4787e">—</span></div>
+    </div>
+    <button class="btn-next" id="btn-confirm">✓ Confirmer le rendez-vous</button>
+    <br><button class="btn-back" id="btn-back-4">← Retour</button>
+  </div>
+
+  <!-- STEP 5: Success -->
+  <div class="step-content" id="step-5">
+    <div class="success-wrap">
+      <div class="success-icon">✅</div>
+      <h2>Réservé!</h2>
+      <div id="success-details" style="background:#ffffff;border:1px solid var(--border);border-left:3px solid #c4787e;padding:1.2rem;margin-bottom:1.5rem;text-align:left;width:100%"></div>
+      <p style="font-size:.8rem;color:rgba(0,0,0,0.4)">À bientôt chez ByBangs! 🌸</p>
+      <button class="btn-primary" id="btn-success" style="margin-top:1.5rem">Retour à l'accueil</button>
+      <button onclick="showPage('reviews')" style="background:none;border:1px solid #c4787e;color:#c4787e;padding:.8rem 1.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;margin-top:.8rem;width:100%">⭐ Laisser un avis</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: HOURS/CONTACT -->
+<div class="page" id="page-hours">
+  <div class="page-header">
+    <div class="label">Informations</div>
+    <h1>Horaires & Contact</h1>
+  </div>
+  <div class="hours-content">
+    <p style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:.8rem">Horaires d'ouverture</p>
+    <div class="hours-card">
+      <div class="hours-row">
+        <span class="hours-day">Samedi — Jeudi</span>
+        <span class="hours-time">10:30 – 22:30</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Vendredi</span>
+        <span class="hours-time">15:00 – 22:30</span>
+      </div>
+    </div>
+    <p style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:.8rem">Contact</p>
+    <div class="contact-list">
+      <a href="tel:0551258141" class="contact-card">
+        <div class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.58 1 1 0 01-.25 1.01z"/></svg></div>
+        <div><div class="contact-lbl">Téléphone</div><div class="contact-val">0551 258 141</div></div>
+      </a>
+      <a href="https://www.instagram.com/barber_bangs_dz?igsh=Y3dmNm9wZTM4cG1q" target="_blank" class="contact-card">
+        <div class="contact-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.975-.975 2.242-1.246 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-1.613.074-3.067.388-4.186 1.507C1.747 2.699 1.433 4.153 1.359 5.766 1.3 7.046 1.287 7.454 1.287 12c0 4.546.013 4.954.072 6.234.074 1.613.388 3.067 1.507 4.186 1.119 1.119 2.573 1.433 4.186 1.507 1.28.059 1.688.072 4.947.072s3.667-.013 4.947-.072c1.613-.074 3.067-.388 4.186-1.507 1.119-1.119 1.433-2.573 1.507-4.186.059-1.28.072-1.688.072-4.947s-.013-3.667-.072-4.947c-.074-1.613-.388-3.067-1.507-4.186C19.214 1.675 17.76 1.361 16.147 1.287 14.867 1.228 14.459 1.215 12 1.215zm0 5.838a4.947 4.947 0 100 9.894 4.947 4.947 0 000-9.894zm0 8.162a3.215 3.215 0 110-6.43 3.215 3.215 0 010 6.43zm6.406-11.845a1.155 1.155 0 100 2.31 1.155 1.155 0 000-2.31z"/></svg></div>
+        <div><div class="contact-lbl">Instagram</div><div class="contact-val">@barber_bangs_dz</div></div>
+      </a>
+      <a href="https://facebook.com/profile.php?id=100054530256562&mibextid=LQQJ4d" target="_blank" class="contact-card">
+        <div class="contact-icon" style="background:#1877f2;border:none"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.027 4.388 11.024 10.125 11.927v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796v8.437C19.612 23.097 24 18.1 24 12.073z"/></svg></div>
+        <div><div class="contact-lbl">Facebook</div><div class="contact-val">BANGS Barber Shop</div></div>
+      </a>
+      <a href="https://maps.app.goo.gl/JEtZ6weUBzZep1VP6" target="_blank" class="contact-card">
+        <div class="contact-icon" style="background:white;border:none"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle fill="white" cx="12" cy="9" r="2.5"/></svg></div>
+        <div><div class="contact-lbl">Google Maps</div><div class="contact-val">Notre adresse</div></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: ADMIN -->
+<div class="page" id="page-admin">
+  <!-- Login -->
+  <div id="admin-login" style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center">
+    <div style="font-size:2.5rem;margin-bottom:1rem">🔐</div>
+    <p style="font-size:.6rem;letter-spacing:.35em;color:#111111;text-transform:uppercase;margin-bottom:.5rem">Admin | إدارة</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:2rem">BANGS Dashboard</h2>
+    <input class="form-input" id="inp-admin-pass" type="password" placeholder="Mot de passe | كلمة المرور" style="max-width:300px;margin-bottom:1rem;text-align:center">
+    <div id="admin-error" style="display:none;color:#ff6b6b;font-size:.75rem;margin-bottom:1rem">❌ Mot de passe incorrect | كلمة المرور خاطئة</div>
+    <button class="btn-next" id="btn-admin-login" style="max-width:300px">Entrer | دخول</button>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="admin-dashboard" style="display:none;padding-bottom:calc(6rem + env(safe-area-inset-bottom))">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div class="label">Admin | إدارة</div>
+        <h1>Dashboard</h1>
+      </div>
+      <div style="display:flex;gap:.8rem">
+        <button id="btn-tv-mode" style="background:rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.2);color:#111111;padding:.5rem .8rem;cursor:pointer;font-size:.8rem">📺 TV</button>
+        <button id="btn-stats-mode" style="background:rgba(167,139,250,0.15);border:1px solid rgba(167,139,250,0.4);color:#a78bfa;padding:.5rem .8rem;cursor:pointer;font-size:.8rem">📊 Stats</button>
+        <button id="btn-admin-refresh" style="background:none;border:1px solid var(--border);color:#111111;padding:.5rem .8rem;cursor:pointer;font-size:.8rem">↻</button>
+        <button id="btn-admin-logout" style="background:none;border:1px solid rgba(255,100,100,0.3);color:#ff8080;padding:.5rem .8rem;cursor:pointer;font-size:.7rem">Quitter | خروج</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.5rem 1.5rem 0">
+      <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem;text-align:center;border-top:2px solid #000000">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#000000" id="stat-today">0</div>
+        <div style="font-size:.6rem;letter-spacing:.1em;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-top:.3rem">Aujourd'hui | اليوم</div>
+      </div>
+      <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem;text-align:center;border-top:2px solid #222222">
+        <div style="font-family:'Playfair Display',serif;font-size:2rem;color:#444444" id="stat-total">0</div>
+        <div style="font-size:.6rem;letter-spacing:.1em;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-top:.3rem">Total | الكل</div>
+      </div>
+    </div>
+
+    <!-- Congés -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#ff8080;text-transform:uppercase;margin-top:.5rem">🗓 Congés | أيام العطل</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <select class="form-input" id="conge-barber" style="font-size:.8rem">
+        <option value="">Tous les coiffeurs</option>
+      </select>
+      <div style="display:flex;gap:.7rem">
+        <input class="form-input" id="conge-date" type="date" style="font-size:.8rem;flex:1">
+        <button id="btn-add-conge" style="background:rgba(255,80,80,0.15);border:1px solid rgba(255,80,80,0.3);color:#ff8080;padding:.9rem 1rem;cursor:pointer;font-size:.8rem;white-space:nowrap">+ Bloquer</button>
+      </div>
+      <div id="conges-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <!-- Horaires Custom -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#80cfff;text-transform:uppercase;margin-top:.5rem">⏰ Horaires Custom | أوقات مخصصة</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="ch-date" type="date" style="font-size:.8rem">
+        <select class="form-input" id="ch-type" style="font-size:.8rem;cursor:pointer">
+          <option value="block">🔴 Bloquer heures</option>
+          <option value="extra">🟢 Ajouter heures</option>
+        </select>
+      </div>
+      <select class="form-input" id="ch-barber" style="font-size:.8rem">
+        <option value="">Tous les coiffeurs</option>
+      </select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <div>
+          <label style="font-size:.65rem;color:rgba(0,0,0,0.4);display:block;margin-bottom:.3rem">De</label>
+          <input class="form-input" id="ch-start" type="time" style="font-size:.8rem">
+        </div>
+        <div>
+          <label style="font-size:.65rem;color:rgba(0,0,0,0.4);display:block;margin-bottom:.3rem">À</label>
+          <input class="form-input" id="ch-end" type="time" style="font-size:.8rem">
+        </div>
+      </div>
+      <button id="btn-add-ch" style="background:rgba(128,207,255,0.1);border:1px solid rgba(128,207,255,0.3);color:#80cfff;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">+ Appliquer</button>
+      <div style="font-size:.65rem;color:rgba(0,0,0,0.3);padding:.3rem .2rem">💡 Pour bloquer une nuit entière: faites 2 lignes — ex: 22:00→23:30 pour le jour 1, puis 00:00→03:00 pour le jour suivant</div>
+      <div id="ch-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-top:.5rem">Réservations | الحجوزات</div>
+
+    <!-- Walk-in button -->
+    <div style="padding:0 1.5rem .8rem;display:flex;gap:.7rem;flex-wrap:wrap">
+      <button id="btn-walkin" style="flex:1;background:rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.2);color:#111111;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.15em">
+        👤 + Walk-in
+      </button>
+      <button id="btn-appeler-suivant" style="flex:1;background:rgba(52,211,153,0.15);border:1px solid rgba(52,211,153,0.4);color:#444444;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600">
+        🔔 Appeler suivant
+      </button>
+    </div>
+
+    <!-- Walk-in Modal -->
+    <div id="walkin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
+      <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000">👤 Walk-in</h2>
+          <button onclick="closeWalkin()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom client</label>
+          <input class="form-input" id="wi-name" type="text" placeholder="Ex: Ahmed">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Téléphone (optionnel)</label>
+          <input class="form-input" id="wi-phone" type="tel" placeholder="Ex: 0551258141">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Coiffeur</label>
+          <select class="form-input" id="wi-barber">
+            <option value="">Choisir...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service</label>
+          <select class="form-input" id="wi-service">
+            <option value="">Choisir...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Heure</label>
+          <select class="form-input" id="wi-time"></select>
+        </div>
+        <button id="btn-walkin-confirm" class="btn-next" style="margin-top:.5rem">✓ Enregistrer</button>
+      </div>
+    </div>
+    
+    <!-- Admin Products -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-top:1rem">🛍 Produits | المنتجات</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="prod-name" type="text" placeholder="Nom produit" style="font-size:.8rem">
+        <input class="form-input" id="prod-price" type="number" placeholder="Prix (DA)" style="font-size:.8rem">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="prod-stock" type="number" placeholder="Stock" style="font-size:.8rem">
+        <input class="form-input" id="prod-desc" type="text" placeholder="Description (opt)" style="font-size:.8rem">
+      </div>
+      <input class="form-input" id="prod-img" type="text" placeholder="URL image (optionnel)" style="font-size:.8rem">
+      <button id="btn-add-product" style="background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.15);color:#111111;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">+ Ajouter produit</button>
+      <div id="admin-products-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <!-- Admin Orders -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#ffd580;text-transform:uppercase;margin-top:.5rem">📦 Commandes | الطلبات</div>
+    <div id="admin-orders-list" style="padding:0 1.5rem 2rem;display:flex;flex-direction:column;gap:.7rem"></div>
+
+    <!-- Blacklist -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#ff8080;text-transform:uppercase;margin-top:.5rem">🚫 Blacklist</div>
+    <div style="padding:0 1.5rem .5rem;display:flex;gap:.7rem">
+      <input class="form-input" id="bl-phone" type="tel" placeholder="Numéro à blacklister" style="font-size:.8rem;flex:1">
+      <button id="btn-add-blacklist" style="background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#ff8080;padding:.9rem 1rem;cursor:pointer;font-size:.8rem;white-space:nowrap">🚫 Bloquer</button>
+    </div>
+    <div id="blacklist-list" style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.5rem"></div>
+
+    <!-- Gestion Coiffeurs -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#a78bfa;text-transform:uppercase;margin-top:.5rem">💈 Gestion Coiffeurs</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="bc-name" type="text" placeholder="Nom du coiffeur" style="font-size:.8rem">
+        <input class="form-input" id="bc-speciality" type="text" placeholder="Spécialité" style="font-size:.8rem">
+      </div>
+      <input class="form-input" id="bc-photo" type="url" placeholder="URL photo (optionnel)" style="font-size:.8rem">
+      <button id="btn-add-barber" style="background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.3);color:#a78bfa;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">+ Ajouter coiffeur</button>
+      <div id="barbers-config-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <!-- Gestion Services -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#60a5fa;text-transform:uppercase;margin-top:.5rem">✂️ Gestion Services</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="sc-name" type="text" placeholder="Nom du service" style="font-size:.8rem">
+        <input class="form-input" id="sc-category" type="text" placeholder="Catégorie (ex: Coupe, Barbe...)" style="font-size:.8rem" list="categories-list">
+        <datalist id="categories-list">
+          <option value="Coupe">
+          <option value="Barbe">
+          <option value="Combo">
+          <option value="Soin">
+        </datalist>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="sc-price" type="number" placeholder="Prix en DA (ex: 500)" style="font-size:.8rem" min="0">
+        <input class="form-input" id="sc-duration" type="number" placeholder="Durée en minutes (ex: 45)" style="font-size:.8rem" min="5">
+      </div>
+      <input class="form-input" id="sc-desc" type="text" placeholder="Description du service (optionnel)" style="font-size:.8rem">
+      <div style="font-size:.6rem;color:rgba(0,0,0,0.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.3rem">3 images séparées</div>
+      <input class="form-input" id="sc-cat-logo" type="url" placeholder="① URL logo catégorie (icône header — ex: logo coupe)" style="font-size:.8rem">
+      <input class="form-input" id="sc-emoji" type="url" placeholder="② URL logo service (icône liste — ex: logo wolf cut)" style="font-size:.8rem">
+      <input class="form-input" id="sc-image" type="url" placeholder="③ URL photo service (grande image détails)" style="font-size:.8rem">
+      <button id="btn-add-service" style="background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);color:#60a5fa;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">+ Ajouter service</button>
+      <div id="services-config-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <!-- Crédits -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#34d399;text-transform:uppercase;margin-top:.5rem">💰 Crédits Coiffeurs</div>
+    <div style="padding:0 1.5rem 1rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <select class="form-input" id="credit-barber" style="font-size:.8rem">
+          <option value="">Choisir coiffeur...</option>
+        </select>
+        <input class="form-input" id="credit-amount" type="number" placeholder="Montant (DA)" style="font-size:.8rem" min="0">
+      </div>
+      <input class="form-input" id="credit-note" type="text" placeholder="Note (ex: slef 17/03)" style="font-size:.8rem">
+      <button id="btn-add-credit" style="background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.3);color:#34d399;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600">+ Ajouter crédit</button>
+      <div id="credits-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <!-- Historique -->
+    <div style="padding:.8rem 1.5rem;font-size:.6rem;letter-spacing:.3em;color:#f59e0b;text-transform:uppercase;margin-top:.5rem">📋 Historique complet</div>
+    <div style="padding:0 1.5rem .5rem;display:flex;flex-direction:column;gap:.7rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <input class="form-input" id="hist-date-from" type="date" style="font-size:.8rem">
+        <input class="form-input" id="hist-date-to" type="date" style="font-size:.8rem">
+      </div>
+      <input class="form-input" id="hist-search" type="text" placeholder="Nom ou numéro téléphone..." style="font-size:.8rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem">
+        <select class="form-input" id="hist-barber" style="font-size:.8rem">
+          <option value="">Tous les coiffeurs</option>
+        </select>
+        <select class="form-input" id="hist-status" style="font-size:.8rem">
+          <option value="">Tous les statuts</option>
+          <option value="confirmed">Confirmé</option>
+          <option value="done">Terminé</option>
+          <option value="cancelled">Annulé</option>
+        </select>
+      </div>
+      <button id="btn-hist-search" style="background:#111111;border:none;color:#ffffff;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600">🔍 Rechercher</button>
+      <div id="hist-summary" style="font-size:.75rem;color:rgba(0,0,0,0.4)"></div>
+      <div id="hist-list" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: REVIEWS -->
+<div class="page" id="page-reviews">
+  <div class="page-header">
+    <div class="label">Témoignages</div>
+    <h1>Avis clients ⭐</h1>
+  </div>
+  <div style="padding:1.2rem 1.5rem">
+    <!-- Form -->
+    <div style="background:#ffffff;border:1px solid var(--border);border-top:2px solid #000000;padding:1.2rem;margin-bottom:1.5rem">
+      <p style="font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-bottom:1rem">Laisser un avis | اترك تقييمك</p>
+      <div class="form-group">
+        <label class="form-label">Votre nom</label>
+        <input class="form-input" id="rev-name" type="text" placeholder="Ex: Ahmed">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Coiffeur</label>
+        <select class="form-input" id="rev-barber">
+          <option value="">Choisir...</option>
+          <option>Younes</option>
+          <option>Mohamed</option>
+          <option>Nadir</option>
+          <option>Islem</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Note</label>
+        <div id="star-picker" style="display:flex;gap:.5rem;font-size:1.8rem;cursor:pointer">
+          <span onclick="setRating(1)" data-star="1">☆</span>
+          <span onclick="setRating(2)" data-star="2">☆</span>
+          <span onclick="setRating(3)" data-star="3">☆</span>
+          <span onclick="setRating(4)" data-star="4">☆</span>
+          <span onclick="setRating(5)" data-star="5">☆</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Commentaire (optionnel)</label>
+        <textarea class="form-input" id="rev-comment" rows="3" placeholder="Super coiffure..." style="resize:none"></textarea>
+      </div>
+      <button id="btn-submit-review" class="btn-next" style="margin-top:0">Envoyer ⭐</button>
+    </div>
+    <!-- Reviews list -->
+    <div id="reviews-list"></div>
+  </div>
+</div>
+
+<!-- BOUTIQUE PAGE -->
+<div class="page" id="page-boutique">
+  <div style="padding:1.5rem 1.5rem .5rem;display:flex;justify-content:space-between;align-items:center">
+    <h1 style="font-family:'Playfair Display',serif;font-size:1.8rem">Boutique 🛍️</h1>
+  </div>
+  <div id="products-list" style="padding:0 1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem"></div>
+</div>
+
+<!-- ORDER MODAL -->
+<div id="order-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
+  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000" id="order-product-name">Commander</h2>
+      <button onclick="closeOrderModal()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Nom</label>
+      <input class="form-input" id="order-name" type="text" placeholder="Votre nom">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Téléphone</label>
+      <input class="form-input" id="order-phone" type="tel" placeholder="Ex: 0551258141">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Quantité</label>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button onclick="changeQty(-1)" style="background:#eeeeee;border:1px solid var(--border);color:white;width:2.5rem;height:2.5rem;cursor:pointer;font-size:1.2rem">−</button>
+        <span id="order-qty" style="font-size:1.2rem;font-weight:600;min-width:2rem;text-align:center">1</span>
+        <button onclick="changeQty(1)" style="background:#eeeeee;border:1px solid var(--border);color:white;width:2.5rem;height:2.5rem;cursor:pointer;font-size:1.2rem">+</button>
+      </div>
+    </div>
+    <button id="btn-order-confirm" class="btn-next" style="margin-top:.5rem">✓ Commander</button>
+  </div>
+</div>
+
+<!-- STATS MODE -->
+<div id="stats-mode" style="display:none;position:fixed;inset:0;background:#f5f5f5;z-index:400;overflow-y:auto;padding:1.5rem">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+    <div>
+      <div style="font-size:.6rem;letter-spacing:.3em;color:#a78bfa;text-transform:uppercase">Statistiques</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.5rem">Dashboard 📊</h2>
+    </div>
+    <button onclick="closeStatsMode()" style="background:none;border:1px solid rgba(255,100,100,0.3);color:#ff8080;padding:.5rem 1rem;cursor:pointer;font-size:.8rem">✕ Fermer</button>
+  </div>
+
+  <!-- KPIs -->
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:.6rem;margin-bottom:1.5rem" id="stats-kpis"></div>
+
+  <!-- Rdv par jour -->
+  <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem;margin-bottom:1rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:#a78bfa;text-transform:uppercase;margin-bottom:1rem">📈 Rdv — 7 derniers jours</div>
+    <div id="stats-chart" style="display:flex;align-items:flex-end;gap:.4rem;height:100px"></div>
+    <div id="stats-chart-labels" style="display:flex;gap:.4rem;margin-top:.4rem"></div>
+  </div>
+
+  <!-- Services populaires -->
+  <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem;margin-bottom:1rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:#111111;text-transform:uppercase;margin-bottom:1rem">🏆 Services populaires</div>
+    <div id="stats-services" style="display:flex;flex-direction:column;gap:.6rem"></div>
+  </div>
+
+  <!-- Coiffeurs -->
+  <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:#222222;text-transform:uppercase;margin-bottom:1rem">💈 Performance coiffeurs</div>
+    <div id="stats-barbers" style="display:flex;flex-direction:column;gap:.6rem"></div>
+  </div>
+
+  <!-- Bilan mensuel -->
+  <div style="background:#ffffff;border:1px solid var(--border);padding:1.2rem;margin-top:1rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:#222222;text-transform:uppercase;margin-bottom:1rem">📅 Bilan mensuel</div>
+    <div id="stats-monthly" style="display:flex;flex-direction:column;gap:.6rem"></div>
+  </div>
+</div>
+
+<!-- TV MODE -->
+<div id="tv-mode">
+  <div class="tv-header">
+    <div style="display:flex;align-items:center;gap:1rem">
+      <span style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#111111">BANGS</span>
+      <span style="font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase">Live Dashboard</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem">
+      <span id="tv-clock" style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000"></span>
+      <span id="tv-date" style="font-size:.7rem;color:rgba(0,0,0,0.4)"></span>
+      <button onclick="closeTVMode()" style="background:none;border:1px solid rgba(255,100,100,0.3);color:#ff8080;padding:.5rem 1rem;cursor:pointer;font-size:.75rem">✕ Fermer</button>
+    </div>
+  </div>
+  <div class="tv-grid" id="tv-grid"></div>
+  <div class="tv-refresh-bar"><div class="tv-refresh-progress" id="tv-progress"></div></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" id="nav-home">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955a1.5 1.5 0 012.092 0L22.25 12M4.5 9.75v10.125A1.125 1.125 0 005.625 21h4.5a1.125 1.125 0 001.125-1.125V15a1.125 1.125 0 011.125-1.125h2.25A1.125 1.125 0 0115.75 15v4.875A1.125 1.125 0 0016.875 21h4.5a1.125 1.125 0 001.125-1.125V9.75"/></svg>
+    Accueil
+  </button>
+  <button class="nav-item" id="nav-booking">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg>
+    Réserver
+  </button>
+  <button class="nav-item" id="nav-reviews">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>
+    Avis
+  </button>
+  <button class="nav-item" id="nav-hours">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    Horaires
+  </button>
+  <button class="nav-item" id="nav-boutique">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+    Boutique
+  </button>
+  <button class="nav-item" id="nav-admin">
+    <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    Admin
+  </button>
+</nav>
+
+<script>
+// ── SUPABASE ──
+// Helper — local date string YYYY-MM-DD (not UTC)
+function getToday() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+const SUPABASE_URL = 'https://rdnptrgktqgdepzscrev.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_pKqN66Sd9W5CxxXXnWnXIQ_jUyH8Fts';
+const { createClient } = supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// ── SERVICES ──
+let SERVICES = [
+  { id:1, name:'Wolf Cut', emoji:'🐺', duration:'45 min', price:'À confirmer', category:'Coupe', img:'https://i.ibb.co/4Z8gBQ7B/1-2-683x1024.jpg' },
+  { id:2, name:'Fade', emoji:'✂️', duration:'45 min', price:'À confirmer', category:'Coupe', img:null },
+  { id:3, name:'Low Fade', emoji:'💈', duration:'45 min', price:'À confirmer', category:'Coupe', img:null },
+  { id:4, name:'Dégradé', emoji:'⚡', duration:'45 min', price:'À confirmer', category:'Coupe', img:null },
+  { id:9, name:'Coupe Enfant', emoji:'👦', duration:'30 min', price:'À confirmer', category:'Coupe', img:null },
+  { id:5, name:'Barbe', emoji:'🪒', duration:'20 min', price:'À confirmer', category:'Barbe', img:null },
+  { id:6, name:'Coupe + Barbe', emoji:'💇', duration:'60 min', price:'À confirmer', category:'Combo', img:null },
+  { id:7, name:'Coloration', emoji:'🎨', duration:'60 min', price:'À confirmer', category:'Soin', img:null },
+  { id:8, name:'Protéine', emoji:'💊', duration:'1h 30min', price:'À confirmer', category:'Soin', durationMins:90, img:null },
+];
+
+// ── BARBERS ──
+let BARBERS = [
+  { id:1, name:'Younes', emoji:'💈', photo:'https://i.ibb.co/TM7bCGmD/5888968061031747260-1.jpg', instagram:'barber_bangs_dz', speciality:'Dégradé & Barbe' },
+  { id:2, name:'Mohamed', emoji:'✂️', photo:'https://i.ibb.co/gZySDM6R/5888968061031747259.jpg', instagram:'barber_bangs_dz', speciality:'Wolf Cut & Fade' },
+  { id:3, name:'Nadir', emoji:'🪒', photo:null, instagram:'barber_bangs_dz', speciality:'Low Fade & Coupe' },
+  { id:4, name:'Islem', emoji:'⭐', photo:'https://i.ibb.co/vCsBNq5k/5888968061031747258.jpg', instagram:'barber_bangs_dz', speciality:'Coupe & Soin' },
+];
+
+// ── TIME SLOTS ──
+const ALL_SLOTS = [
+  '10:30','11:15','12:00','12:45','13:30','14:15',
+  '15:00','15:45','16:30','17:15','18:00','18:45',
+  '19:30','20:15','21:00','21:45',
+];
+
+// ── STATE ──
+let state = {
+  page: 'home',
+  step: 1,
+  selectedService: null,
+  selectedServices: [], // multi-select
+  selectedBarber: null,
+  selectedDate: null,
+  selectedTime: null,
+  calYear: new Date().getFullYear(),
+  calMonth: new Date().getMonth(),
+  bookedSlots: [],
+  blockedDates: [],
+  customHours: [],
+};
+
+// ── NAVIGATION ──
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  document.getElementById('nav-' + p).classList.add('active');
+  state.page = p;
+  if (p === 'reviews') loadReviews();
+  if (p === 'boutique') loadProducts();
+  if (p === 'booking' && state.step === 1) { renderServices(); loadBlockedDates(); }
+  if (p === 'admin' && adminAuth) { loadConges(); loadCustomHours(); loadAdminProducts(); loadAdminOrders(); loadBlacklist(); }
+  if (p === 'home') loadProducts();
+}
+
+// ── STEPS ──
+function goStep(n) {
+  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  updateStepIndicators(n);
+  state.step = n;
+  if (n === 2) { loadBlockedDates(); loadAndRenderSlots(); }
+  if (n === 4) { renderSummary(); }
+  window.scrollTo(0,0);
+}
+
+function updateStepIndicators(current) {
+  for(let i=1;i<=4;i++) {
+    const ind = document.getElementById('step-ind-' + i);
+    ind.classList.remove('active','done');
+    if(i < current) ind.classList.add('done');
+    else if(i === current) ind.classList.add('active');
+    if(i < 4) {
+      const line = document.getElementById('line-' + i);
+      line.classList.toggle('done', i < current);
+    }
+  }
+}
+
+// ── SERVICES ──
+let openCategory = null;
+let expandedService = null;
+
+function getTotalDuration() {
+  return state.selectedServices.reduce((sum, s) => sum + (s.durationMins || 45), 0);
+}
+
+function renderServicesBanner() {
+  const banner = document.getElementById('services-banner');
+  if (!banner) return;
+  if (state.selectedServices.length === 0) {
+    banner.style.display = 'none';
+    return;
+  }
+  const totalMins = getTotalDuration();
+  const h = Math.floor(totalMins / 60);
+  const m = totalMins % 60;
+  const durStr = h > 0 ? `${h}h${m > 0 ? m + 'min' : ''}` : `${m}min`;
+  const names = state.selectedServices.map(s => s.name).join(' + ');
+  const isLong = totalMins > 90; // Plus de 2 slots
+  
+  banner.style.display = 'block';
+  banner.style.background = isLong ? '#7f1d1d' : '#111111';
+  banner.style.borderLeft = isLong ? '3px solid #fca5a5' : '3px solid #ffffff';
+  banner.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:.7rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.1em">Sélection</div>
+        <div style="font-size:.82rem;font-weight:600;color:#ffffff">${names}</div>
+        ${isLong ? `<div style="font-size:.7rem;color:#fca5a5;margin-top:.3rem">⚠️ Durée longue — confirmez avec le salon</div>` : ''}
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:.7rem;color:rgba(255,255,255,0.5)">Durée totale</div>
+        <div style="font-size:.9rem;font-weight:700;color:${isLong ? '#fca5a5' : '#ffffff'}">⏱ ${durStr}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderServices() {
+  const list = document.getElementById('services-list');
+  const categoryOrder = [...new Set(SERVICES.map(s => s.category))].filter(Boolean);
+  list.innerHTML = categoryOrder.map(cat => {
+    const services = SERVICES.filter(s => s.category === cat);
+    if (!services.length) return '';
+    const isOpen = openCategory === cat;
+    // Get category logo from first service that has one
+    const catLogo = services.find(s => s.categoryLogo)?.categoryLogo || null;
+    return `
+      <div style="border:1px solid var(--border);overflow:hidden;margin-bottom:.5rem">
+        <div onclick="toggleCategory('${cat}')" style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.2rem;cursor:pointer;background:#ffffff;user-select:none">
+          <div style="display:flex;align-items:center;gap:.7rem">
+            ${catLogo 
+              ? `<img src="${catLogo}" style="width:26px;height:26px;object-fit:cover;border-radius:4px">` 
+              : ''}
+            <span style="font-weight:600;font-size:.95rem">${cat}</span>
+          </div>
+        </div>
+        ${isOpen ? `
+          <div style="background:#f0f0f0;display:flex;flex-direction:column;gap:.5rem;padding:.7rem">
+            ${services.map(s => {
+              const isExpanded = expandedService === s.id;
+              const isSelected = state.selectedServices.some(sel => sel.id === s.id);
+              return `
+                <div style="border:2px solid ${isSelected?'#111111':'var(--border)'};overflow:hidden;background:#ffffff">
+                  <div onclick="toggleService(${s.id})" style="display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;cursor:pointer">
+                    <div style="display:flex;align-items:center;gap:.7rem">
+                      <div style="width:20px;height:20px;border:2px solid ${isSelected?'#111':'#ccc'};background:${isSelected?'#111':'transparent'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                        ${isSelected?'<span style="color:white;font-size:.7rem">✓</span>':''}
+                      </div>
+                      <span style="font-size:1.1rem">${s.emoji && s.emoji.startsWith('http') ? `<img src="${s.emoji}" style="width:24px;height:24px;object-fit:cover;border-radius:3px;vertical-align:middle">` : s.emoji}</span>
+                      <span style="font-size:.85rem;font-weight:500">${s.name}</span>
+                    </div>
+                  </div>
+                  ${isExpanded ? `
+                    <div style="border-top:1px solid var(--border)">
+                      ${s.img ? `<img src="${s.img}" style="width:100%;height:380px;object-fit:cover;object-position:top;display:block">` : ''}
+                      <div style="padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center">
+                        <div>
+                          <div style="font-size:.7rem;color:rgba(0,0,0,0.4)">⏱ ${s.duration}</div>
+                          ${s.description ? `<div style="font-size:.75rem;color:rgba(0,0,0,0.6);margin-top:.2rem">${s.description}</div>` : ''}
+                          <div style="font-size:.9rem;color:#111111;font-weight:700;margin-top:.2rem">${s.price}</div>
+                        </div>
+                        <button onclick="selectService(${s.id})" style="background:${isSelected?'#111111':'rgba(0,0,0,0.08)'};border:1px solid #111111;color:${isSelected?'#ffffff':'#111111'};padding:.6rem 1.2rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:600">
+                          ${isSelected?'✓ Ajouté':'+ Ajouter'}
+                        </button>
+                      </div>
+                    </div>
+                  ` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+  renderServicesBanner();
+  renderBarbers();
+}
+
+function toggleCategory(cat) {
+  openCategory = openCategory === cat ? null : cat;
+  expandedService = null;
+  renderServices();
+}
+
+function toggleService(id) {
+  expandedService = expandedService === id ? null : id;
+  renderServices();
+}
+
+window.toggleCategory = toggleCategory;
+window.toggleService = toggleService;
+
+function selectService(id) {
+  const svc = SERVICES.find(s => s.id === id);
+  if (!svc) return;
+  const idx = state.selectedServices.findIndex(s => s.id === id);
+  if (idx >= 0) {
+    state.selectedServices.splice(idx, 1); // deselect
+  } else {
+    state.selectedServices.push(svc); // add
+  }
+  // Keep backward compat
+  state.selectedService = state.selectedServices[0] || null;
+  renderServices();
+  checkStep1();
+}
+
+function renderBarbers() {
+  const list = document.getElementById('barbers-list');
+  list.innerHTML = BARBERS.map(b => `
+    <div class="barber-card ${state.selectedBarber?.id === b.id ? 'selected':''}" onclick="selectBarber(${b.id})">
+      ${b.photo 
+        ? `<div class="barber-avatar" style="padding:0;overflow:hidden"><img src="${b.photo}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>`
+        : `<div class="barber-avatar">${b.emoji}</div>`}
+      <div class="barber-name">${b.name}</div>
+      ${b.speciality ? `<div style="font-size:.6rem;color:rgba(0,0,0,0.4);text-align:center;margin-top:.2rem">${b.speciality}</div>` : ''}
+    </div>
+  `).join('');
+}
+
+function selectBarber(id) {
+  state.selectedBarber = BARBERS.find(b => b.id === id);
+  renderBarbers();
+  checkStep1();
+}
+
+function checkStep1() {
+  document.getElementById('btn-next-1').disabled = !(state.selectedServices.length > 0 && state.selectedBarber);
+}
+
+async function loadBlockedDates() {
+  const { data } = await db.from('blocked_dates').select('blocked_date, barber');
+  const selectedBarber = state.selectedBarber?.name;
+  // Block date if: barber=null (all) OR barber matches selected
+  state.blockedDates = (data || [])
+    .filter(r => !r.barber || !selectedBarber || r.barber === selectedBarber)
+    .map(r => r.blocked_date);
+  renderCalendar();
+}
+
+// ── CALENDAR ──
+const MONTHS = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+const DAYS = ['D','L','M','M','J','V','S'];
+
+function renderCalendar() {
+  const y = state.calYear, m = state.calMonth;
+  document.getElementById('cal-month').textContent = MONTHS[m] + ' ' + y;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = DAYS.map(d => `<div class="cal-day-name">${d}</div>`).join('');
+  const first = new Date(y, m, 1).getDay();
+  const days = new Date(y, m+1, 0).getDate();
+  const today = new Date(); today.setHours(0,0,0,0);
+  for(let i=0;i<first;i++) grid.innerHTML += `<div class="cal-day empty"></div>`;
+  for(let d=1;d<=days;d++) {
+    const date = new Date(y,m,d);
+    const isPast = date < today;
+    const dateStr = `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isSelected = state.selectedDate === dateStr;
+    const isBlocked = state.blockedDates.includes(dateStr);
+    const isDisabled = isPast || isBlocked;
+    grid.innerHTML += `<div class="cal-day ${isDisabled?'disabled':''} ${isBlocked?'blocked':''} ${isSelected?'selected':''} ${date.getTime()===today.getTime()?'today':''}"
+      onclick="${isDisabled?'':'selectDate(\''+dateStr+'\')'}">${d}${isBlocked?'<span style="display:block;font-size:.4rem;color:#ff8080">Fermé</span>':''}</div>`;
+  }
+}
+
+function prevMonth() {
+  if(state.calMonth === 0) { state.calMonth=11; state.calYear--; }
+  else state.calMonth--;
+  renderCalendar();
+}
+
+function nextMonth() {
+  if(state.calMonth === 11) { state.calMonth=0; state.calYear++; }
+  else state.calMonth++;
+  renderCalendar();
+}
+
+async function selectDate(dateStr) {
+  state.selectedDate = dateStr;
+  state.selectedTime = null;
+  document.getElementById('btn-next-2').disabled = true;
+  renderCalendar();
+  const slotsWrap = document.getElementById('slots-wrap');
+  slotsWrap.style.display = 'block';
+  document.getElementById('slots-grid').innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  // Load booked slots + custom hours together
+  const [slotsRes, chRes] = await Promise.all([
+    db.from('reservations').select('reservation_time, service')
+      .eq('reservation_date', dateStr)
+      .eq('barber', state.selectedBarber?.name || '')
+      .neq('status', 'cancelled')
+      .neq('status', 'done')
+      .in('status', ['confirmed', 'calling']),
+    db.from('custom_hours').select('*').eq('date', dateStr).or(`barber.is.null,barber.eq.${state.selectedBarber?.name || ''}`)
+  ]);
+
+  // Build all blocked slots considering duration
+  const bookedSet = new Set();
+  (slotsRes.data || []).forEach(r => {
+    // Handle multi-service (e.g. "Coupe + Barbe + Protéine")
+    const serviceNames = r.service ? r.service.split(' + ') : [];
+    let totalDur = 0;
+    serviceNames.forEach(name => {
+      const svc = SERVICES.find(s => s.name === name.trim());
+      totalDur += svc?.durationMins || 45;
+    });
+    if (totalDur === 0) totalDur = 45;
+    const slots = Math.ceil(totalDur / 45);
+    const [h, m] = r.reservation_time.split(':').map(Number);
+    const startMins = h * 60 + m;
+    for (let i = 0; i < slots; i++) {
+      const mins = startMins + i * 45;
+      const sh = String(Math.floor(mins / 60) % 24).padStart(2,'0');
+      const sm = String(mins % 60).padStart(2,'0');
+      bookedSet.add(`${sh}:${sm}`);
+    }
+  });
+  state.bookedSlots = [...bookedSet];
+  state.customHours = chRes.data || [];
+  renderSlots();
+}
+
+async function loadAndRenderSlots() {
+  // Load custom hours for selected date
+  const { data: chData } = await db.from('custom_hours').select('*').eq('date', state.selectedDate);
+  state.customHours = chData || [];
+  renderSlots();
+}
+
+function renderSlots() {
+  const grid = document.getElementById('slots-grid');
+  const d = new Date(state.selectedDate);
+  const isFri = d.getDay() === 5;
+  const now = new Date();
+  const isToday = state.selectedDate === getToday();
+  const currentHHMM = now.toTimeString().slice(0,5);
+
+  const blocked = (state.customHours || []).filter(h => h.type === 'block');
+  const extra = (state.customHours || []).filter(h => h.type === 'extra');
+
+  // Generate extra slots
+  const extraSlots = [];
+  extra.forEach(h => {
+    let [sh, sm] = h.time_start.slice(0,5).split(':').map(Number);
+    const [eh, em] = h.time_end.slice(0,5).split(':').map(Number);
+    // Round start to nearest 30min
+    if (sm < 15) sm = 0;
+    else if (sm < 45) sm = 30;
+    else { sh++; sm = 0; }
+    while (sh * 60 + sm < eh * 60 + em) {
+      const slot = `${String(sh % 24).padStart(2,'0')}:${String(sm).padStart(2,'0')}`;
+      extraSlots.push(slot);
+      sm += 30; if (sm >= 60) { sh++; sm -= 60; }
+    }
+  });
+
+  const allSlots = [...new Set([...ALL_SLOTS, ...extraSlots])].sort();
+
+  const validSlots = allSlots.filter(s => {
+    const h = parseInt(s.split(':')[0]);
+    const isNight = h >= 23 || h < 4; // after 22:00
+    if (isFri && h < 15 && !extraSlots.includes(s)) return false;
+    if (!isFri && h < 10 && !extraSlots.includes(s)) return false;
+    if (isNight && !extraSlots.includes(s)) return false;
+    if (isToday && s <= currentHHMM) return false;
+    const isBlocked = blocked.some(b => {
+      const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
+      const startMins = parseInt(b.time_start.slice(0,2)) * 60 + parseInt(b.time_start.slice(3,5));
+      const endMins = parseInt(b.time_end.slice(0,2)) * 60 + parseInt(b.time_end.slice(3,5));
+      return slotMins >= startMins && slotMins < endMins;
+    });
+    if (isBlocked) return false;
+    return true;
+  });
+  const serviceDuration = getTotalDuration() || 45;
+  const slotsNeeded = Math.ceil(serviceDuration / 45);
+  const h = Math.floor(serviceDuration / 60);
+  const m = serviceDuration % 60;
+  const durStr = h > 0 ? `${h}h${m > 0 ? m+'min' : ''}` : `${m}min`;
+
+  // Show duration info
+  const slotsTitle = document.querySelector('.slots-title');
+  if (slotsTitle) slotsTitle.innerHTML = `CRÉNEAUX DISPONIBLES <span style="color:rgba(0,0,0,0.4);font-weight:400;font-size:.6rem">(durée totale: ${durStr})</span>`;
+
+  const closingMins = 22 * 60 + 30; // 22:30 fermeture réelle
+  // Extra hours might extend closing — find max closing from extras
+  const maxClosing = extra.length > 0 
+    ? Math.max(closingMins, ...extra.map(e => parseInt(e.time_end.slice(0,2)) * 60 + parseInt(e.time_end.slice(3,5))))
+    : closingMins;
+
+  // Filter: slot must exist + service must END at or before closing (22:00)
+  const availableSlots = validSlots.filter(s => {
+    const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
+    return slotMins + serviceDuration <= maxClosing;
+  });
+
+  grid.innerHTML = availableSlots.map(s => {
+    const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
+
+    // Check: all occupied slots must be free
+    let isBooked = false;
+    for (let i = 0; i < slotsNeeded; i++) {
+      const checkMins = slotMins + i * 45;
+      const checkH = String(Math.floor(checkMins / 60) % 24).padStart(2,'0');
+      const checkM = String(checkMins % 60).padStart(2,'0');
+      if (state.bookedSlots.includes(`${checkH}:${checkM}`)) { isBooked = true; break; }
+    }
+
+    const isSelected = state.selectedTime === s;
+    return `<div class="slot ${isBooked?'booked':''} ${isSelected?'selected':''}" onclick="${isBooked?'':'selectSlot(\''+s+'\')'}">${s}</div>`;
+  }).join('');
+}
+
+function selectSlot(time) {
+  state.selectedTime = time;
+  renderSlots();
+  document.getElementById('btn-next-2').disabled = false;
+}
+
+// ── STEP 3 ──
+function validateStep3() {
+  const name = document.getElementById('inp-name').value.trim();
+  const phone = document.getElementById('inp-phone').value.trim();
+  const phoneValid = /^0\d{9}$/.test(phone);
+  document.getElementById('btn-next-3').disabled = !(name.length > 1 && phoneValid);
+}
+
+// ── SUMMARY ──
+function renderSummary() {
+  const servicesText = state.selectedServices.map(s => s.name).join(' + ') || '—';
+  document.getElementById('sum-service').textContent = servicesText;
+  document.getElementById('sum-barber').textContent = state.selectedBarber?.name || '—';
+  document.getElementById('sum-date').textContent = formatDate(state.selectedDate);
+  document.getElementById('sum-time').textContent = state.selectedTime || '—';
+  document.getElementById('sum-name').textContent = document.getElementById('inp-name').value;
+  document.getElementById('sum-phone').textContent = document.getElementById('inp-phone').value;
+  document.getElementById('sum-price').textContent = state.selectedService?.price || '—';
+}
+
+function formatDate(str) {
+  if(!str) return '—';
+  const [y,m,d] = str.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+// ── CONFIRM ──
+async function confirmBooking() {
+  const btn = document.getElementById('btn-confirm');
+  btn.disabled = true;
+  btn.textContent = 'Enregistrement...';
+
+  // Check double booking — all slots that would be occupied by this reservation
+  const totalDur = getTotalDuration() || 45;
+  const slotsNeeded = Math.ceil(totalDur / 45);
+  const selectedMins = parseInt(state.selectedTime.slice(0,2)) * 60 + parseInt(state.selectedTime.slice(3,5));
+  const endMins = selectedMins + totalDur;
+
+  // Check closing time (21h)
+  if (endMins > 22 * 60 + 30) {
+    showToast('Ce créneau dépasse l\'heure de fermeture (22:30) ⚠️', 'error');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmer le rendez-vous';
+    goStep(2);
+    return;
+  }
+  
+  // Build list of slots this reservation would occupy
+  const occupiedSlots = [];
+  for (let i = 0; i < slotsNeeded; i++) {
+    const mins = selectedMins + i * 45;
+    const h = String(Math.floor(mins / 60) % 24).padStart(2,'0');
+    const m = String(mins % 60).padStart(2,'0');
+    occupiedSlots.push(`${h}:${m}`);
+  }
+
+  // Check if any of these slots are taken
+  const { data: existingSlots } = await db.from('reservations')
+    .select('reservation_time, service')
+    .eq('reservation_date', state.selectedDate)
+    .eq('barber', state.selectedBarber?.name)
+    .in('status', ['confirmed', 'calling']);
+
+  let conflict = false;
+  (existingSlots || []).forEach(r => {
+    const serviceNames = r.service ? r.service.split(' + ') : [];
+    let dur = 0;
+    serviceNames.forEach(name => {
+      const svc = SERVICES.find(s => s.name === name.trim());
+      dur += svc?.durationMins || 45;
+    });
+    if (dur === 0) dur = 45;
+    const existingSlotsMins = parseInt(r.reservation_time.slice(0,2)) * 60 + parseInt(r.reservation_time.slice(3,5));
+    const existingSlotsCount = Math.ceil(dur / 45);
+    for (let i = 0; i < existingSlotsCount; i++) {
+      const mins = existingSlotsMins + i * 45;
+      const sh = String(Math.floor(mins / 60) % 24).padStart(2,'0');
+      const sm = String(mins % 60).padStart(2,'0');
+      if (occupiedSlots.includes(`${sh}:${sm}`)) { conflict = true; break; }
+    }
+  });
+
+  if (conflict) {
+    showToast('Ce créneau est déjà pris! Choisissez un autre ⚠️', 'error');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmer le rendez-vous';
+    goStep(2);
+    return;
+  }
+
+  // Check blacklist
+  const clientPhone = document.getElementById('inp-phone').value.trim();
+  const { data: blacklisted } = await db.from('blacklist').select('id').eq('phone', clientPhone).limit(1);
+  if (blacklisted && blacklisted.length > 0) {
+    showToast('Réservation impossible ⚠️', 'error');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmer le rendez-vous';
+    return;
+  }
+
+  // Check client already booked same date + barber (active only)
+  const { data: alreadyBooked } = await db.from('reservations')
+    .select('id')
+    .eq('reservation_date', state.selectedDate)
+    .eq('barber', state.selectedBarber?.name)
+    .eq('client_phone', clientPhone)
+    .in('status', ['confirmed', 'calling']);
+
+  if(alreadyBooked && alreadyBooked.length > 0) {
+    showToast('Vous avez déjà une réservation avec ce coiffeur aujourd\'hui! ⚠️', 'error');
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmer le rendez-vous';
+    return;
+  }
+
+  // Get daily ticket number PER BARBER
+  const { count } = await db.from('reservations')
+    .select('*', { count: 'exact', head: true })
+    .eq('reservation_date', state.selectedDate)
+    .eq('barber', state.selectedBarber?.name)
+    .in('status', ['confirmed', 'calling']);
+  const dailyTicket = (count || 0) + 1;
+
+  const { data: insertData, error: insertError } = await db.from('reservations').insert({
+    client_name: document.getElementById('inp-name').value.trim(),
+    client_phone: document.getElementById('inp-phone').value.trim(),
+    service: state.selectedServices.map(s => s.name).join(' + '),
+    barber: state.selectedBarber?.name,
+    reservation_date: state.selectedDate,
+    reservation_time: state.selectedTime,
+    status: 'confirmed',
+    daily_ticket: dailyTicket
+  }).select('id, daily_ticket').single();
+
+  if(insertError) {
+    if(insertError.code === '23505') {
+      showToast('Ce créneau vient d\'être pris! Choisissez un autre ⚠️', 'error');
+      goStep(2);
+    } else {
+      showToast('Erreur: ' + insertError.message, 'error');
+    }
+    btn.disabled = false;
+    btn.textContent = '✓ Confirmer le rendez-vous';
+  } else {
+    // Show success details
+    document.getElementById('success-details').innerHTML = `
+      <div style="text-align:center;margin-bottom:1rem;padding:.8rem;background:rgba(0,0,0,0.05);border:1px solid rgba(0,0,0,0.15)">
+        <div style="font-size:.6rem;letter-spacing:.3em;color:rgba(0,0,0,0.4);text-transform:uppercase">Votre ticket</div>
+        <div style="font-family:'Playfair Display',serif;font-size:2.5rem;color:#111111;font-weight:700">#${insertData?.daily_ticket || insertData?.id || '—'}</div>
+        <div style="font-size:.7rem;color:rgba(0,0,0,0.4)">Montrez ce numéro au barbier</div>
+      </div>
+      <div id="notif-btn-wrap" style="margin-bottom:1rem">
+        <button onclick="activateAlerts()" style="width:100%;background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.4);color:#444444;padding:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">
+          🔔 Activer les alertes — je veux être notifié quand c'est mon tour
+        </button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-size:.65rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em">Coiffeur</span>
+          <span style="font-weight:600;color:#000000">${state.selectedBarber?.name}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-size:.65rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em">Service</span>
+          <span style="font-weight:600">${state.selectedServices.map(s=>s.name).join(' + ')}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-size:.65rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em">Date</span>
+          <span style="font-weight:600">${formatDate(state.selectedDate)}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between">
+          <span style="font-size:.65rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em">Heure</span>
+          <span style="font-weight:600;color:#000000">${state.selectedTime}</span>
+        </div>
+      </div>
+    `;
+    // Save phone locally for Mes RDV
+    localStorage.setItem('bangs_phone', document.getElementById('inp-phone').value.trim());
+    // Save my ticket info
+    localStorage.setItem('my_ticket', JSON.stringify({
+      ticket: insertData?.daily_ticket || insertData?.id,
+      barber: state.selectedBarber?.name,
+      time: state.selectedTime,
+      date: state.selectedDate,
+      id: insertData?.id
+    }));
+    playNotificationSound();
+    showToast('Réservation confirmée! ✓', 'success');
+    setupRealtimeListener(insertData?.id);
+    goStep(5);
+  }
+}
+
+function resetBooking() {
+  state.selectedService = null;
+  state.selectedServices = [];
+  state.selectedBarber = null;
+  state.selectedDate = null;
+  state.selectedTime = null;
+  document.getElementById('inp-name').value = '';
+  document.getElementById('inp-phone').value = '';
+  goStep(1);
+  renderServices();
+}
+
+// ── TOAST ──
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── INIT ──
+renderServices();
+loadProducts();
+
+document.getElementById('nav-home').addEventListener('click', () => showPage('home'));
+document.getElementById('nav-booking').addEventListener('click', () => showPage('booking'));
+
+document.getElementById('nav-hours').addEventListener('click', () => showPage('hours'));
+
+document.getElementById('btn-hero').addEventListener('click', () => showPage('booking'));
+document.getElementById('btn-next-1').addEventListener('click', () => goStep(2));
+document.getElementById('btn-next-2').addEventListener('click', () => goStep(3));
+document.getElementById('btn-next-3').addEventListener('click', () => goStep(4));
+document.getElementById('btn-confirm').addEventListener('click', confirmBooking);
+document.getElementById('btn-success').addEventListener('click', () => { resetBooking(); showPage('home'); });
+
+document.getElementById('btn-back-2').addEventListener('click', () => goStep(1));
+document.getElementById('btn-back-3').addEventListener('click', () => goStep(2));
+document.getElementById('btn-back-4').addEventListener('click', () => goStep(3));
+
+document.getElementById('btn-prev-month').addEventListener('click', prevMonth);
+document.getElementById('btn-next-month').addEventListener('click', nextMonth);
+
+document.getElementById('inp-name').addEventListener('input', validateStep3);
+document.getElementById('inp-phone').addEventListener('input', validateStep3);
+
+// ── REVIEWS ──
+let selectedRating = 0;
+
+function setRating(n) {
+  selectedRating = n;
+  document.querySelectorAll('#star-picker span').forEach((s, i) => {
+    s.textContent = i < n ? '★' : '☆';
+    s.style.color = i < n ? '#000000' : 'rgba(0,0,0,0.3)';
+  });
+}
+
+async function loadReviews() {
+  const { data } = await db.from('reviews').select('*').order('created_at', {ascending: false}).limit(20);
+  const list = document.getElementById('reviews-list');
+  if(!data || data.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">⭐</div><p>Aucun avis pour le moment</p></div>`;
+    return;
+  }
+  list.innerHTML = data.map(r => `
+    <div style="background:#ffffff;border:1px solid var(--border);border-left:3px solid #000000;padding:1.2rem;margin-bottom:.8rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <span style="font-weight:600">${r.client_name}</span>
+        <span style="color:#111111;font-size:1rem">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+      </div>
+      ${r.barber ? `<div style="font-size:.7rem;color:rgba(0,0,0,0.4);margin-bottom:.4rem">💈 ${r.barber}</div>` : ''}
+      ${r.comment ? `<div style="font-size:.85rem;color:rgba(0,0,0,0.7)">${r.comment}</div>` : ''}
+      <div style="font-size:.65rem;color:rgba(0,0,0,0.3);margin-top:.5rem">${new Date(r.created_at).toLocaleDateString('fr-FR')}</div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('btn-submit-review').addEventListener('click', async () => {
+  const name = document.getElementById('rev-name').value.trim();
+  const barber = document.getElementById('rev-barber').value;
+  const comment = document.getElementById('rev-comment').value.trim();
+  if(!name || !selectedRating) {
+    showToast('Entrez votre nom et une note ⚠️', 'error');
+    return;
+  }
+  const btn = document.getElementById('btn-submit-review');
+  btn.disabled = true;
+  const { error } = await db.from('reviews').insert({
+    client_name: name,
+    rating: selectedRating,
+    barber: barber || null,
+    comment: comment || null
+  });
+  if(error) {
+    showToast('Erreur!', 'error');
+  } else {
+    showToast('Merci pour votre avis! ⭐', 'success');
+    document.getElementById('rev-name').value = '';
+    document.getElementById('rev-comment').value = '';
+    document.getElementById('rev-barber').value = '';
+    setRating(0);
+    loadReviews();
+  }
+  btn.disabled = false;
+});
+
+document.getElementById('nav-reviews').addEventListener('click', () => showPage('reviews'));
+window.setRating = setRating;
+
+// ── BOUTIQUE ──
+let currentProduct = null;
+let orderQty = 1;
+
+async function loadProducts() {
+  const container = document.getElementById('products-list');
+  container.innerHTML = '<div class="loader"><div class="spinner"></div></div>';
+  const { data } = await db.from('products').select('*').order('id');
+  if (!data || data.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="grid-column:span 2"><div class="icon">🛍️</div><p>Aucun produit disponible</p></div>';
+    return;
+  }
+  container.innerHTML = data.map(p => `
+    <div style="background:#ffffff;border:1px solid var(--border);overflow:hidden">
+      ${p.image_url ? `<img src="${p.image_url}" style="width:100%;height:140px;object-fit:cover">` : `<div style="width:100%;height:140px;background:#eeeeee;display:flex;align-items:center;justify-content:center;font-size:2.5rem">🛍️</div>`}
+      <div style="padding:.8rem">
+        <div style="font-weight:600;font-size:.85rem;margin-bottom:.3rem">${p.name}</div>
+        ${p.description ? `<div style="font-size:.7rem;color:rgba(0,0,0,0.4);margin-bottom:.5rem">${p.description}</div>` : ''}
+        <div style="color:#111111;font-weight:700;font-size:.9rem;margin-bottom:.5rem">${p.price} DA</div>
+        <div style="font-size:.65rem;color:${p.stock > 0 ? '#cccccc' : '#ff8080'};margin-bottom:.7rem">${p.stock > 0 ? `✓ En stock (${p.stock})` : '✗ Rupture'}</div>
+        ${p.stock > 0 ? `<button onclick="openOrderModal(${p.id}, '${p.name.replace(/'/g,"\\'")}', ${p.stock})" style="width:100%;background:rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.2);color:#111111;padding:.6rem;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif">Commander</button>` : `<button disabled style="width:100%;background:rgba(0,0,0,0.05);border:1px solid var(--border);color:rgba(0,0,0,0.2);padding:.6rem;font-size:.75rem;font-family:'DM Sans',sans-serif;cursor:not-allowed">Indisponible</button>`}
+      </div>
+    </div>
+  `).join('');
+}
+
+function openOrderModal(id, name, stock) {
+  currentProduct = { id, name, stock };
+  orderQty = 1;
+  document.getElementById('order-product-name').textContent = '🛍️ ' + name;
+  document.getElementById('order-qty').textContent = '1';
+  document.getElementById('order-name').value = '';
+  document.getElementById('order-phone').value = '';
+  document.getElementById('order-modal').style.display = 'block';
+}
+
+function closeOrderModal() {
+  document.getElementById('order-modal').style.display = 'none';
+  currentProduct = null;
+}
+
+function changeQty(delta) {
+  orderQty = Math.max(1, Math.min(currentProduct?.stock || 1, orderQty + delta));
+  document.getElementById('order-qty').textContent = orderQty;
+}
+
+document.getElementById('btn-order-confirm').addEventListener('click', async () => {
+  const name = document.getElementById('order-name').value.trim();
+  const phone = document.getElementById('order-phone').value.trim();
+  if (!name || !phone) { showToast('Remplissez tous les champs ⚠️', 'error'); return; }
+  if (!/^0\d{9}$/.test(phone)) { showToast('Numéro invalide ⚠️', 'error'); return; }
+
+  const btn = document.getElementById('btn-order-confirm');
+  btn.disabled = true; btn.textContent = '...';
+
+  const { error } = await db.from('orders').insert({
+    client_name: name,
+    client_phone: phone,
+    product_id: currentProduct.id,
+    product_name: currentProduct.name,
+    quantity: orderQty
+  });
+
+  if (error) {
+    showToast('Erreur!', 'error');
+  } else {
+    // Decrease stock
+    await db.rpc('decrement_stock', { product_id: currentProduct.id, qty: orderQty });
+    showToast('Commande envoyée! ✓', 'success');
+    closeOrderModal();
+    loadProducts();
+  }
+  btn.disabled = false; btn.textContent = '✓ Commander';
+});
+
+document.getElementById('nav-boutique').addEventListener('click', () => showPage('boutique'));
+window.openOrderModal = openOrderModal;
+window.closeOrderModal = closeOrderModal;
+window.changeQty = changeQty;
+
+async function blacklistPhone(phone, name) {
+  if (!confirm(`Blacklister ${name} (${phone}) ?`)) return;
+  const { error } = await db.from('blacklist').insert({ phone, reason: 'Spam/No show' });
+  if (error && error.code === '23505') {
+    showToast('Déjà blacklisté!', 'error');
+  } else if (error) {
+    showToast('Erreur!', 'error');
+  } else {
+    showToast(`🚫 ${name} blacklisté!`, 'success');
+    loadBlacklist();
+  }
+}
+window.blacklistPhone = blacklistPhone;
+
+async function loadBlacklist() {
+  const { data } = await db.from('blacklist').select('*').order('created_at', { ascending: false });
+  const list = document.getElementById('blacklist-list');
+  if (!data || data.length === 0) {
+    list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);padding:.5rem 0">Aucun numéro blacklisté</div>';
+    return;
+  }
+  list.innerHTML = data.map(b => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;background:rgba(255,80,80,0.04);border:1px solid rgba(255,80,80,0.15)">
+      <span style="font-size:.82rem">🚫 ${b.phone} ${b.reason ? `<span style="color:rgba(0,0,0,0.3);font-size:.7rem">· ${b.reason}</span>` : ''}</span>
+      <button onclick="removeBlacklist(${b.id})" style="background:none;border:none;color:#888;cursor:pointer;font-size:.8rem">✕ Débloquer</button>
+    </div>
+  `).join('');
+}
+
+async function removeBlacklist(id) {
+  await db.from('blacklist').delete().eq('id', id);
+  showToast('Numéro débloqué ✓', 'success');
+  loadBlacklist();
+}
+window.removeBlacklist = removeBlacklist;
+
+document.getElementById('btn-add-blacklist').addEventListener('click', async () => {
+  const phone = document.getElementById('bl-phone').value.trim();
+  if (!phone) return;
+  const { error } = await db.from('blacklist').insert({ phone, reason: 'Manuel' });
+  if (error && error.code === '23505') {
+    showToast('Déjà blacklisté!', 'error');
+  } else if (error) {
+    showToast('Erreur!', 'error');
+  } else {
+    showToast('🚫 Numéro blacklisté!', 'success');
+    document.getElementById('bl-phone').value = '';
+    loadBlacklist();
+  }
+});
+
+function populateAdminSelects() {
+  const barberOptions = BARBERS.map(b => `<option value="${b.name}">${b.name}</option>`).join('');
+  const serviceOptions = SERVICES.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+  
+  ['conge-barber', 'ch-barber', 'hist-barber', 'credit-barber'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = `<option value="">Tous les coiffeurs</option>${barberOptions}`;
+  });
+  
+  const wiBarber = document.getElementById('wi-barber');
+  if (wiBarber) wiBarber.innerHTML = `<option value="">Choisir...</option>${barberOptions}`;
+  
+  const wiService = document.getElementById('wi-service');
+  if (wiService) wiService.innerHTML = `<option value="">Choisir...</option>${serviceOptions}`;
+
+  // Also update appeler suivant prompt options
+  window._barberNames = BARBERS.map(b => b.name);
+}
+
+// ── CRÉDITS ──
+async function loadCredits() {
+  const { data } = await db.from('credits').select('*').order('created_at', { ascending: false });
+  const list = document.getElementById('credits-list');
+  if (!list) return;
+  if (!data || data.length === 0) {
+    list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);text-align:center;padding:.5rem">Aucun crédit</div>';
+    return;
+  }
+
+  // Group by barber — calculate totals
+  const totals = {};
+  data.forEach(c => {
+    if (!totals[c.barber]) totals[c.barber] = 0;
+    totals[c.barber] += c.amount;
+  });
+
+  // Summary per barber
+  const summaryHTML = Object.entries(totals).map(([barber, total]) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;background:${total > 0 ? 'rgba(52,211,153,0.08)' : 'rgba(0,0,0,0.03)'};border:1px solid ${total > 0 ? 'rgba(52,211,153,0.2)' : 'rgba(0,0,0,0.1)'}">
+      <span style="font-size:.85rem;font-weight:600">💈 ${barber}</span>
+      <span style="font-size:.9rem;font-weight:700;color:${total > 0 ? '#34d399' : '#111'}">${total > 0 ? '+' : ''}${total.toLocaleString()} DA</span>
+    </div>
+  `).join('');
+
+  // Individual entries
+  const entriesHTML = data.map(c => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;background:#ffffff;border:1px solid rgba(0,0,0,0.08)">
+      <div>
+        <div style="font-size:.78rem;font-weight:600">${c.barber} <span style="color:#34d399;font-weight:700">+${c.amount.toLocaleString()} DA</span></div>
+        ${c.note ? `<div style="font-size:.65rem;color:rgba(0,0,0,0.4)">${c.note}</div>` : ''}
+        <div style="font-size:.6rem;color:rgba(0,0,0,0.3)">${new Date(c.created_at).toLocaleDateString('fr-FR')}</div>
+      </div>
+      <button onclick="removeCredit(${c.id}, ${c.amount}, '${c.barber}')" style="background:none;border:none;color:#ff8080;cursor:pointer;font-size:.85rem">✕</button>
+    </div>
+  `).join('');
+
+  list.innerHTML = `
+    <div style="font-size:.6rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem">Total par coiffeur</div>
+    ${summaryHTML}
+    <div style="font-size:.6rem;color:rgba(0,0,0,0.4);text-transform:uppercase;letter-spacing:.1em;margin:.5rem 0 .3rem">Détail</div>
+    ${entriesHTML}
+  `;
+}
+
+async function removeCredit(id, amount, barber) {
+  if (!confirm(`Rembourser ${amount.toLocaleString()} DA de ${barber}?`)) return;
+  await db.from('credits').delete().eq('id', id);
+  showToast(`✓ Crédit de ${barber} remboursé`, 'success');
+  loadCredits();
+}
+window.removeCredit = removeCredit;
+
+document.getElementById('btn-add-credit').addEventListener('click', async () => {
+  const barber = document.getElementById('credit-barber').value;
+  const amount = parseInt(document.getElementById('credit-amount').value);
+  const note = document.getElementById('credit-note').value.trim();
+  if (!barber) { showToast('Choisissez un coiffeur ⚠️', 'error'); return; }
+  if (!amount || amount <= 0) { showToast('Entrez un montant ⚠️', 'error'); return; }
+  const { error } = await db.from('credits').insert({ barber, amount, note: note || null });
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast(`💰 Crédit de ${amount.toLocaleString()} DA ajouté pour ${barber}`, 'success');
+  document.getElementById('credit-amount').value = '';
+  document.getElementById('credit-note').value = '';
+  loadCredits();
+});
+
+// ── HISTORIQUE ──
+async function loadHistorique() {
+  const from = document.getElementById('hist-date-from').value;
+  const to = document.getElementById('hist-date-to').value;
+  const barber = document.getElementById('hist-barber').value;
+  const status = document.getElementById('hist-status').value;
+  const search = document.getElementById('hist-search').value.trim().toLowerCase();
+  const list = document.getElementById('hist-list');
+  const summary = document.getElementById('hist-summary');
+
+  list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);text-align:center;padding:.5rem">Chargement...</div>';
+
+  let query = db.from('reservations').select('*').order('reservation_date', {ascending: false}).order('reservation_time', {ascending: true});
+  if (from) query = query.gte('reservation_date', from);
+  if (to) query = query.lte('reservation_date', to);
+  if (barber) query = query.eq('barber', barber);
+  if (status) query = query.eq('status', status);
+  query = query.limit(500);
+
+  let { data } = await query;
+  if (!data) data = [];
+
+  // Client-side filter by name or phone
+  if (search) {
+    data = data.filter(r => 
+      (r.client_name || '').toLowerCase().includes(search) ||
+      (r.client_phone || '').includes(search)
+    );
+  }
+
+  if (data.length === 0) {
+    list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);text-align:center;padding:1rem">Aucun résultat</div>';
+    summary.textContent = '';
+    return;
+  }
+
+  const done = data.filter(r => r.status === 'done').length;
+  const cancelled = data.filter(r => r.status === 'cancelled').length;
+  // Revenue
+  let revenue = 0;
+  data.forEach(r => {
+    (r.service||'').split(' + ').forEach(name => {
+      const svc = SERVICES.find(s => s.name === name.trim());
+      if (svc?.price && svc.price !== 'À confirmer') {
+        const n = parseInt(svc.price.replace(/\s/g,'').replace('DA',''));
+        if (!isNaN(n)) revenue += n;
+      }
+    });
+  });
+
+  summary.innerHTML = `<span style="color:#111;font-weight:600">${data.length} résultats</span> · ✓ ${done} terminés · ✗ ${cancelled} annulés${revenue > 0 ? ` · <strong>${revenue.toLocaleString()} DA</strong>` : ''}`;
+
+  const nowStr = getToday();
+  const nowTime = new Date().toTimeString().slice(0,5);
+  const statusColors = { confirmed:'#3b82f6', done:'#34d399', cancelled:'#ff8080', calling:'#f59e0b', past:'#aaa' };
+  const statusLabels = { confirmed:'Confirmé', calling:'En cours', done:'✓ Terminé', cancelled:'✗ Annulé', past:'Passé' };
+
+  function getDS(r) {
+    if (r.status === 'done') return 'done';
+    if (r.status === 'cancelled') return 'cancelled';
+    if (r.status === 'calling') return 'calling';
+    if (r.reservation_date < nowStr) return 'past';
+    if (r.reservation_date === nowStr && r.reservation_time?.slice(0,5) < nowTime) return 'past';
+    return 'confirmed';
+  }
+
+  // Group by date
+  const byDate = {};
+  data.forEach(r => {
+    if (!byDate[r.reservation_date]) byDate[r.reservation_date] = {};
+    if (!byDate[r.reservation_date][r.barber]) byDate[r.reservation_date][r.barber] = [];
+    byDate[r.reservation_date][r.barber].push(r);
+  });
+  const sortedDates = Object.keys(byDate).sort((a,b) => b.localeCompare(a));
+  const colW = `${Math.floor(100 / (BARBERS.length + 1))}%`;
+
+  const barberHeaders = BARBERS.map(b => `
+    <th style="padding:.5rem .4rem;text-align:center;border-left:1px solid #ddd;font-size:.7rem;font-weight:600;background:#111;color:#fff;width:${colW};min-width:80px">
+      ${b.photo ? `<img src="${b.photo}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;display:block;margin:0 auto .2rem">` : b.emoji}
+      ${b.name}
+    </th>
+  `).join('');
+
+  const tableRows = sortedDates.map(date => {
+    const [y,m,d] = date.split('-');
+    const dayName = new Date(date).toLocaleDateString('fr-FR', {weekday:'short'});
+    const dayAll = Object.values(byDate[date]).flat();
+    const dayDone = dayAll.filter(r => r.status === 'done').length;
+    const dayCancelled = dayAll.filter(r => r.status === 'cancelled').length;
+
+    const cells = BARBERS.map(b => {
+      const rdvs = (byDate[date][b.name] || []).sort((a,c) => a.reservation_time > c.reservation_time ? 1 : -1);
+      if (!rdvs.length) return `<td style="border-left:1px solid #eee;padding:.3rem;background:rgba(0,0,0,0.01)"></td>`;
+      return `<td style="border-left:1px solid #eee;padding:.3rem;vertical-align:top">
+        ${rdvs.map(r => `
+          <div style="margin-bottom:.3rem;padding:.25rem .4rem;border-left:2px solid ${statusColors[getDS(r)]||'#ccc'};background:rgba(0,0,0,0.02);display:flex;align-items:flex-start;gap:.4rem">
+            ${r.status !== 'cancelled' ? `<input type="checkbox" data-id="${r.id}" style="margin-top:.15rem;flex-shrink:0;cursor:pointer">` : '<span style="width:13px;display:inline-block"></span>'}
+            <div style="min-width:0">
+              <div style="font-size:.68rem;font-weight:700;color:#111">${r.reservation_time?.slice(0,5)} ${r.client_name}</div>
+              <div style="font-size:.6rem;color:rgba(0,0,0,0.45)">${r.service||'—'}</div>
+              <div style="font-size:.6rem;color:rgba(0,0,0,0.35)">📞 ${r.client_phone||'—'}</div>
+              <div style="font-size:.58rem;color:${statusColors[getDS(r)]||'#888'}">${statusLabels[getDS(r)]||''}</div>
+            </div>
+          </div>
+        `).join('')}
+      </td>`;
+    }).join('');
+
+    return `<tr>
+      <td style="padding:.4rem .5rem;background:#f5f5f5;border-bottom:1px solid #ddd;white-space:nowrap;vertical-align:top;position:sticky;left:0;z-index:1">
+        <div style="font-size:.78rem;font-weight:700;color:#111">${d}/${m}</div>
+        <div style="font-size:.6rem;color:rgba(0,0,0,0.4)">${dayName}</div>
+        <div style="font-size:.58rem;color:#34d399">✓${dayDone}</div>
+        ${dayCancelled > 0 ? `<div style="font-size:.58rem;color:#ff8080">✗${dayCancelled}</div>` : ''}
+      </td>
+      ${cells}
+    </tr>`;
+  }).join('');
+
+  list.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+      <span style="font-size:.7rem;color:rgba(0,0,0,0.4)">Cochez pour sélectionner</span>
+      <button onclick="cancelSelectedHist()" style="background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#ff8080;padding:.4rem .8rem;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif">✗ Annuler sélection</button>
+    </div>
+    <div style="overflow-x:auto;border:1px solid #ddd;max-height:60vh;overflow-y:auto">
+      <table style="width:100%;border-collapse:collapse;min-width:300px">
+        <thead style="position:sticky;top:0;z-index:2">
+          <tr>
+            <th style="padding:.5rem .4rem;text-align:left;background:#111;color:#fff;font-size:.7rem;width:50px;position:sticky;left:0;z-index:3">Date</th>
+            ${barberHeaders}
+          </tr>
+        </thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+  `;
+}
+async function cancelSelectedHist() {
+  const checkboxes = document.querySelectorAll('#hist-list input[type="checkbox"]:checked');
+  if (checkboxes.length === 0) { showToast('Aucune sélection ⚠️', 'error'); return; }
+  if (!confirm(`Annuler ${checkboxes.length} réservation(s)?`)) return;
+  const ids = [...checkboxes].map(cb => cb.dataset.id);
+  await Promise.all(ids.map(id => db.from('reservations').update({status:'cancelled'}).eq('id', id)));
+  showToast(`✗ ${ids.length} annulée(s)`, 'success');
+  loadHistorique();
+}
+window.cancelSelectedHist = cancelSelectedHist;
+
+window.loadHistorique = loadHistorique;
+
+document.getElementById('btn-hist-search').addEventListener('click', loadHistorique);
+
+// ── BARBERS CONFIG ──
+let barbersConfigCache = [];
+async function loadBarbersConfig() {
+  const { data } = await db.from('barbers_config').select('*').eq('active', true).order('sort_order');
+  const list = document.getElementById('barbers-config-list');
+  if (!list) return;
+  if (!data || data.length === 0) { barbersConfigCache = []; list.innerHTML = ''; return; }
+  barbersConfigCache = data;
+  list.innerHTML = data.map(b => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15)">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        ${b.photo_url ? `<img src="${b.photo_url}" style="width:28px;height:28px;border-radius:50%;object-fit:cover">` : `<span>${b.emoji||'💈'}</span>`}
+        <div>
+          <div style="font-size:.82rem;font-weight:600">${b.name}</div>
+          ${b.speciality ? `<div style="font-size:.65rem;color:rgba(0,0,0,0.4)">${b.speciality}</div>` : ''}
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <button onclick="editBarberPhoto(${b.id})" style="background:none;border:none;color:#60a5fa;cursor:pointer;font-size:.85rem">📷</button>
+        <button onclick="deleteBarberConfig(${b.id})" style="background:none;border:none;color:#ff8080;cursor:pointer;font-size:.9rem">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function editBarberPhoto(id) {
+  const barber = barbersConfigCache.find(b => b.id === id);
+  if (!barber) { showToast('Coiffeur introuvable ⚠️', 'error'); return; }
+  const current = barber.photo_url || '';
+  const next = prompt(`Modifier photo de ${barber.name}\nCollez URL image (laisser vide pour supprimer)`, current);
+  if (next === null) return;
+  const photo_url = next.trim() || null;
+  const { error } = await db.from('barbers_config').update({ photo_url }).eq('id', id);
+  if (error) { showToast('Erreur mise à jour photo!', 'error'); return; }
+  showToast('Photo coiffeur mise à jour ✓', 'success');
+  await loadBarbersConfig();
+  await refreshDynamicData();
+}
+window.editBarberPhoto = editBarberPhoto;
+
+async function deleteBarberConfig(id) {
+  if (!confirm('Supprimer ce coiffeur?')) return;
+  await db.from('barbers_config').update({ active: false }).eq('id', id);
+  showToast('Coiffeur supprimé ✓', 'success');
+  loadBarbersConfig();
+  await refreshDynamicData();
+}
+window.deleteBarberConfig = deleteBarberConfig;
+
+document.getElementById('btn-add-barber').addEventListener('click', async () => {
+  const name = document.getElementById('bc-name').value.trim();
+  const speciality = document.getElementById('bc-speciality').value.trim();
+  const photo_url = document.getElementById('bc-photo').value.trim() || null;
+  if (!name) { showToast('Entrez le nom ⚠️', 'error'); return; }
+  const { error } = await db.from('barbers_config').insert({ name, speciality, photo_url });
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast(`💈 ${name} ajouté!`, 'success');
+  document.getElementById('bc-name').value = '';
+  document.getElementById('bc-speciality').value = '';
+  document.getElementById('bc-photo').value = '';
+  loadBarbersConfig();
+  await refreshDynamicData();
+});
+
+// ── SERVICES CONFIG ──
+async function loadServicesConfig() {
+  const { data } = await db.from('services_config').select('*').eq('active', true).order('sort_order');
+  const list = document.getElementById('services-config-list');
+  if (!list) return;
+  if (!data || data.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = data.map(s => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;background:rgba(96,165,250,0.05);border:1px solid rgba(96,165,250,0.15)">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        ${s.emoji && s.emoji.startsWith('http') 
+          ? `<img src="${s.emoji}" style="width:24px;height:24px;object-fit:cover;border-radius:3px">` 
+          : `<span style="font-size:1.1rem">${s.emoji||'✂️'}</span>`}
+        <div>
+          <div style="font-size:.82rem;font-weight:600">${s.name}</div>
+          <div style="font-size:.65rem;color:rgba(0,0,0,0.4)">${s.category} · ${s.duration} · ${s.price}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <button onclick="editServiceConfig(${s.id},'${(s.name||'').replace(/'/g,"\\'")}','${(s.price||'').replace(/'/g,"\\'")}','${(s.duration||'').replace(/'/g,"\\'")}','${(s.emoji||'').replace(/'/g,"\\'")}','${(s.image_url||'').replace(/'/g,"\\'")}','${(s.category_logo||'').replace(/'/g,"\\'")}','${(s.description||'').replace(/'/g,"\\'")}')" style="background:none;border:none;color:#60a5fa;cursor:pointer;font-size:.85rem">✏️</button>
+        <button onclick="deleteServiceConfig(${s.id})" style="background:none;border:none;color:#ff8080;cursor:pointer;font-size:.9rem">✕</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function editServiceConfig(id, name, price, duration, emoji, image_url, category_logo, description) {
+  document.getElementById('edit-svc-id').value = id;
+  document.getElementById('edit-svc-title').textContent = name;
+  // Price: extract number from "500 DA"
+  const priceNum = parseInt((price||'').replace(/\D/g,'')) || '';
+  document.getElementById('edit-svc-price').value = priceNum;
+  // Duration: extract minutes
+  const durMatch = (duration||'').match(/(\d+)h(?:(\d+)min)?|(\d+)\s*min/);
+  let durMins = 45;
+  if (durMatch) {
+    if (durMatch[1]) durMins = parseInt(durMatch[1])*60 + (parseInt(durMatch[2])||0);
+    else if (durMatch[3]) durMins = parseInt(durMatch[3]);
+  }
+  document.getElementById('edit-svc-duration').value = durMins;
+  document.getElementById('edit-svc-desc').value = description || '';
+  document.getElementById('edit-svc-cat-logo').value = category_logo || '';
+  document.getElementById('edit-svc-emoji').value = (emoji && emoji.startsWith('http')) ? emoji : '';
+  document.getElementById('edit-svc-image').value = image_url || '';
+  document.getElementById('edit-service-modal').style.display = 'flex';
+}
+window.editServiceConfig = editServiceConfig;
+
+function closeEditServiceModal() {
+  document.getElementById('edit-service-modal').style.display = 'none';
+}
+window.closeEditServiceModal = closeEditServiceModal;
+
+async function saveServiceEdit() {
+  const id = document.getElementById('edit-svc-id').value;
+  const priceRaw = parseInt(document.getElementById('edit-svc-price').value) || 0;
+  const price = priceRaw > 0 ? `${priceRaw} DA` : 'À confirmer';
+  const durationMins = parseInt(document.getElementById('edit-svc-duration').value) || 45;
+  const h = Math.floor(durationMins/60), m = durationMins%60;
+  const duration = h > 0 ? `${h}h${m > 0 ? m+'min' : ''}` : `${durationMins} min`;
+  const description = document.getElementById('edit-svc-desc').value.trim() || null;
+  const category_logo = document.getElementById('edit-svc-cat-logo').value.trim() || null;
+  const emoji = document.getElementById('edit-svc-emoji').value.trim() || '✂️';
+  const image_url = document.getElementById('edit-svc-image').value.trim() || null;
+
+  const { error } = await db.from('services_config').update({ price, duration, duration_mins: durationMins, description, category_logo, emoji, image_url }).eq('id', id);
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast('Service modifié ✓', 'success');
+  closeEditServiceModal();
+  loadServicesConfig();
+  await refreshDynamicData();
+}
+window.saveServiceEdit = saveServiceEdit;
+
+async function deleteServiceConfig(id) {
+  if (!confirm('Supprimer ce service?')) return;
+  await db.from('services_config').update({ active: false }).eq('id', id);
+  showToast('Service supprimé ✓', 'success');
+  loadServicesConfig();
+  await refreshDynamicData();
+}
+window.deleteServiceConfig = deleteServiceConfig;
+
+document.getElementById('btn-add-service').addEventListener('click', async () => {
+  const name = document.getElementById('sc-name').value.trim();
+  const category = document.getElementById('sc-category').value;
+  const priceRaw = parseInt(document.getElementById('sc-price').value) || 0;
+  const durationMinsRaw = parseInt(document.getElementById('sc-duration').value) || 45;
+  const price = priceRaw > 0 ? `${priceRaw} DA` : 'À confirmer';
+  const h = Math.floor(durationMinsRaw / 60);
+  const m = durationMinsRaw % 60;
+  const duration = h > 0 ? `${h}h${m > 0 ? m+'min' : ''}` : `${durationMinsRaw} min`;
+  const description = document.getElementById('sc-desc').value.trim() || null;
+  const category_logo = document.getElementById('sc-cat-logo').value.trim() || null;
+  const emojiRaw = document.getElementById('sc-emoji').value.trim();
+  const emoji = emojiRaw || '✂️';
+  const image_url = document.getElementById('sc-image').value.trim() || null;
+  if (!name) { showToast('Entrez le nom ⚠️', 'error'); return; }
+  const { error } = await db.from('services_config').insert({ name, category, price, duration, emoji, image_url, duration_mins: durationMinsRaw, category_logo, description });
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast(`✂️ ${name} ajouté!`, 'success');
+  ['sc-name','sc-price','sc-duration','sc-desc','sc-cat-logo','sc-emoji','sc-image'].forEach(id => document.getElementById(id).value = '');
+  loadServicesConfig();
+  await refreshDynamicData();
+});
+
+// ── REFRESH DYNAMIC DATA ──
+async function refreshDynamicData() {
+  const [barbersRes, servicesRes] = await Promise.all([
+    db.from('barbers_config').select('*').eq('active', true).order('sort_order'),
+    db.from('services_config').select('*').eq('active', true).order('sort_order')
+  ]);
+  if (barbersRes.data && barbersRes.data.length > 0) {
+    BARBERS = barbersRes.data.map(b => ({
+      id: b.id, name: b.name, emoji: b.emoji || '💈',
+      photo: b.photo_url, speciality: b.speciality
+    }));
+  }
+  if (servicesRes.data && servicesRes.data.length > 0) {
+    SERVICES = servicesRes.data.map(s => ({
+      id: s.id, name: s.name, emoji: s.emoji || '✂️',
+      category: s.category, duration: s.duration,
+      price: s.price, img: s.image_url,
+      durationMins: s.duration_mins || 45,
+      categoryLogo: s.category_logo || null,
+      description: s.description || null
+    }));
+  }
+  populateAdminSelects();
+  // Re-render booking page if open
+  if (document.getElementById('page-booking').classList.contains('active')) {
+    renderServices();
+  }
+}
+
+// ── WALK-IN ──
+function openWalkin() {
+  // Fill time select with today's slots
+  const now = new Date();
+  const todayStr = getToday();
+  const isFri = now.getDay() === 5;
+  const timeSelect = document.getElementById('wi-time');
+  timeSelect.innerHTML = ALL_SLOTS
+    .filter(s => { const h = parseInt(s); return isFri ? h >= 15 : h >= 10; })
+    .map(s => `<option>${s}</option>`).join('');
+  // Set closest time
+  const hhmm = now.toTimeString().slice(0,5);
+  const closest = ALL_SLOTS.find(s => s >= hhmm) || ALL_SLOTS[ALL_SLOTS.length-1];
+  timeSelect.value = closest;
+  document.getElementById('walkin-modal').style.display = 'block';
+}
+
+function closeWalkin() {
+  document.getElementById('walkin-modal').style.display = 'none';
+  document.getElementById('wi-name').value = '';
+  document.getElementById('wi-phone').value = '';
+  document.getElementById('wi-barber').value = '';
+  document.getElementById('wi-service').value = '';
+}
+
+document.getElementById('btn-walkin').addEventListener('click', openWalkin);
+document.getElementById('btn-walkin-confirm').addEventListener('click', async () => {
+  const name = document.getElementById('wi-name').value.trim();
+  const phone = document.getElementById('wi-phone').value.trim() || 'Walk-in';
+  const barber = document.getElementById('wi-barber').value;
+  const service = document.getElementById('wi-service').value;
+  const time = document.getElementById('wi-time').value;
+  const today = getToday();
+
+  if(!name || !barber || !service) {
+    showToast('Remplissez tous les champs ⚠️', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-walkin-confirm');
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const { count: wiCount } = await db.from('reservations')
+    .select('*', { count: 'exact', head: true })
+    .eq('reservation_date', today);
+  const wiTicket = (wiCount || 0) + 1;
+
+  const { error } = await db.from('reservations').insert({
+    client_name: name,
+    client_phone: phone,
+    service: service,
+    barber: barber,
+    reservation_date: today,
+    reservation_time: time,
+    status: 'confirmed',
+    daily_ticket: wiTicket
+  });
+
+  if(error) {
+    showToast(error.code === '23505' ? 'Créneau déjà pris! ⚠️' : 'Erreur!', 'error');
+  } else {
+    showToast('Walk-in enregistré! ✓', 'success');
+    closeWalkin();
+      }
+  btn.disabled = false;
+  btn.textContent = '✓ Enregistrer';
+});
+
+window.closeWalkin = closeWalkin;
+
+// ── PRODUCTS ──
+let currentOrderProduct = null;
+
+async function loadProducts() {
+  const { data } = await db.from('products').select('*').order('id');
+  const grid = document.getElementById('products-grid');
+  if (!data || data.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:rgba(0,0,0,0.3);font-size:.8rem;padding:1rem">Aucun produit disponible</div>';
+    return;
+  }
+  grid.innerHTML = data.map(p => `
+    <div style="background:#ffffff;border:1px solid var(--border);padding:1rem;display:flex;flex-direction:column;gap:.5rem">
+      ${p.image_url ? `<img src="${p.image_url}" style="width:100%;height:120px;object-fit:cover;border-radius:2px">` : '<div style="width:100%;height:80px;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;font-size:2rem">🛍</div>'}
+      <div style="font-weight:600;font-size:.85rem">${p.name}</div>
+      ${p.description ? `<div style="font-size:.7rem;color:rgba(0,0,0,0.4)">${p.description}</div>` : ''}
+      <div style="color:#111111;font-weight:700;font-size:.9rem">${p.price.toLocaleString()} DA</div>
+      <div style="font-size:.65rem;color:${p.stock > 0 ? '#cccccc' : '#ff8080'}">${p.stock > 0 ? `✓ En stock (${p.stock})` : '✗ Rupture de stock'}</div>
+      ${p.stock > 0 ? `<button onclick="openOrderModal(${p.id},'${p.name.replace(/'/g,"\\'")}',${p.price},${p.stock})" style="background:rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.2);color:#111111;padding:.6rem;cursor:pointer;font-size:.75rem;font-family:'DM Sans',sans-serif">Commander</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function openOrderModal(id, name, price, stock) {
+  currentOrderProduct = { id, name, price, stock };
+  orderQty = 1;
+  document.getElementById('order-qty').textContent = 1;
+  document.getElementById('order-product-info').innerHTML = `<strong>${name}</strong> — <span style="color:#000000">${price.toLocaleString()} DA</span>`;
+  document.getElementById('order-name').value = '';
+  document.getElementById('order-phone').value = '';
+  document.getElementById('order-modal').style.display = 'block';
+}
+
+function closeOrderModal() {
+  document.getElementById('order-modal').style.display = 'none';
+  currentOrderProduct = null;
+}
+window.closeOrderModal = closeOrderModal;
+
+function changeQty(delta) {
+  orderQty = Math.max(1, Math.min(currentOrderProduct?.stock || 1, orderQty + delta));
+  document.getElementById('order-qty').textContent = orderQty;
+}
+window.changeQty = changeQty;
+
+document.getElementById('btn-order-confirm').addEventListener('click', async () => {
+  const name = document.getElementById('order-name').value.trim();
+  const phone = document.getElementById('order-phone').value.trim();
+  if (!name || !phone) { showToast('Remplissez tous les champs ⚠️', 'error'); return; }
+  if (!/^0\d{9}$/.test(phone)) { showToast('Numéro invalide ⚠️', 'error'); return; }
+
+  const btn = document.getElementById('btn-order-confirm');
+  btn.disabled = true;
+
+  const { error } = await db.from('orders').insert({
+    client_name: name,
+    client_phone: phone,
+    product_id: currentOrderProduct.id,
+    product_name: currentOrderProduct.name,
+    quantity: orderQty,
+    status: 'pending'
+  });
+
+  if (error) { showToast('Erreur!', 'error'); btn.disabled = false; return; }
+
+  // Decrease stock
+  await db.from('products').update({ stock: currentOrderProduct.stock - orderQty }).eq('id', currentOrderProduct.id);
+
+  showToast('Commande envoyée! ✓', 'success');
+  closeOrderModal();
+  loadProducts();
+  btn.disabled = false;
+});
+
+// ── ADMIN ORDERS ──
+async function loadAdminOrders() {
+  const { data } = await db.from('orders').select('*').order('created_at', { ascending: false });
+  const container = document.getElementById('admin-orders-list');
+  if (!data || data.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:rgba(0,0,0,0.3);font-size:.8rem;padding:1rem">Aucune commande</div>';
+    return;
+  }
+  container.innerHTML = data.map(o => `
+    <div style="background:#eeeeee;border:1px solid var(--border);border-left:3px solid ${o.status === 'done' ? '#cccccc' : '#000000'};padding:1rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem">
+      <div>
+        <div style="font-weight:600;font-size:.85rem">${o.product_name} × ${o.quantity}</div>
+        <div style="font-size:.75rem;color:rgba(0,0,0,0.5)">${o.client_name} · ${o.client_phone}</div>
+        <div style="font-size:.65rem;color:rgba(0,0,0,0.3)">${new Date(o.created_at).toLocaleString('fr-FR')}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.4rem;align-items:flex-end">
+        <span style="font-size:.65rem;padding:.2rem .5rem;background:${o.status === 'done' ? 'rgba(127,255,170,0.1)' : 'rgba(0,0,0,0.05)'};color:${o.status === 'done' ? '#cccccc' : '#000000'}">${o.status === 'done' ? '✓ Livré' : '⏳ En attente'}</span>
+        ${o.status !== 'done' ? `<button onclick="markOrderDone(${o.id})" style="background:rgba(127,255,170,0.1);border:1px solid rgba(127,255,170,0.3);color:#cccccc;padding:.3rem .6rem;cursor:pointer;font-size:.65rem">✓ Livré</button>` : ''}
+        <button onclick="deleteOrder(${o.id})" style="background:none;border:1px solid rgba(255,80,80,0.3);color:#ff8080;padding:.3rem .6rem;cursor:pointer;font-size:.65rem">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function markOrderDone(id) {
+  await db.from('orders').update({ status: 'done' }).eq('id', id);
+  loadAdminOrders();
+}
+window.markOrderDone = markOrderDone;
+
+async function deleteOrder(id) {
+  await db.from('orders').delete().eq('id', id);
+  loadAdminOrders();
+}
+window.deleteOrder = deleteOrder;
+
+// ── ADMIN PRODUCTS ──
+async function loadAdminProducts() {
+  const { data } = await db.from('products').select('*').order('id');
+  const container = document.getElementById('admin-products-list');
+  if (!data || data.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:rgba(0,0,0,0.3);font-size:.8rem;padding:.5rem">Aucun produit</div>';
+    return;
+  }
+  container.innerHTML = data.map(p => `
+    <div style="background:#eeeeee;border:1px solid var(--border);padding:.8rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem">
+      <div>
+        <div style="font-weight:600;font-size:.85rem">${p.name}</div>
+        <div style="font-size:.75rem;color:#000000">${p.price.toLocaleString()} DA · Stock: <span style="color:${p.stock > 0 ? '#cccccc' : '#ff8080'}">${p.stock}</span></div>
+      </div>
+      <div style="display:flex;gap:.4rem;align-items:center">
+        <button onclick="updateStock(${p.id},${p.stock},-1)" style="background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);color:#ff8080;width:2rem;height:2rem;cursor:pointer;font-size:1rem">−</button>
+        <button onclick="updateStock(${p.id},${p.stock},1)" style="background:rgba(127,255,170,0.1);border:1px solid rgba(127,255,170,0.3);color:#cccccc;width:2rem;height:2rem;cursor:pointer;font-size:1rem">+</button>
+        <button onclick="deleteProduct(${p.id})" style="background:none;border:1px solid rgba(255,80,80,0.3);color:#ff8080;padding:.3rem .5rem;cursor:pointer;font-size:.7rem">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function updateStock(id, current, delta) {
+  const newStock = Math.max(0, current + delta);
+  await db.from('products').update({ stock: newStock }).eq('id', id);
+  loadAdminProducts();
+}
+window.updateStock = updateStock;
+
+async function deleteProduct(id) {
+  if (!confirm('Supprimer ce produit?')) return;
+  await db.from('products').delete().eq('id', id);
+  loadAdminProducts();
+}
+window.deleteProduct = deleteProduct;
+
+document.getElementById('btn-add-product').addEventListener('click', async () => {
+  const name = document.getElementById('prod-name').value.trim();
+  const price = parseInt(document.getElementById('prod-price').value);
+  const stock = parseInt(document.getElementById('prod-stock').value) || 0;
+  const desc = document.getElementById('prod-desc').value.trim();
+  const img = document.getElementById('prod-img').value.trim();
+  if (!name || !price) { showToast('Nom et prix obligatoires ⚠️', 'error'); return; }
+  const { error } = await db.from('products').insert({ name, price, stock, description: desc || null, image_url: img || null });
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast('Produit ajouté ✓', 'success');
+  document.getElementById('prod-name').value = '';
+  document.getElementById('prod-price').value = '';
+  document.getElementById('prod-stock').value = '';
+  document.getElementById('prod-desc').value = '';
+  document.getElementById('prod-img').value = '';
+  loadAdminProducts();
+  loadProducts();
+});
+
+// ── SOUND ──
+function playNotificationSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [523, 659, 784, 1047]; // Do Mi Sol Do
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.3);
+      osc.start(ctx.currentTime + i * 0.15);
+      osc.stop(ctx.currentTime + i * 0.15 + 0.3);
+    });
+  } catch(e) {}
+}
+
+// ── CONGÉS ──
+async function loadConges() {
+  const { data } = await db.from('blocked_dates').select('*').order('blocked_date');
+  const list = document.getElementById('conges-list');
+  if(!data || data.length === 0) {
+    list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);padding:.5rem">Aucun congé programmé</div>';
+    return;
+  }
+  list.innerHTML = data.map(r => `
+    <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,80,80,0.05);border:1px solid rgba(255,80,80,0.2);padding:.7rem 1rem">
+      <span style="font-size:.85rem">🗓 ${formatDate(r.blocked_date)} ${r.barber ? `<span style="color:#111111;font-size:.7rem">· ${r.barber}</span>` : '<span style="color:rgba(0,0,0,0.4);font-size:.7rem">· Tous</span>'}</span>
+      <button onclick="deleteConge(${r.id})" style="background:none;border:none;color:#ff5555;cursor:pointer;font-size:.9rem">✕</button>
+    </div>
+  `).join('');
+}
+
+async function deleteConge(id) {
+  const { error } = await db.from('blocked_dates').delete().eq('id', id);
+  if(error) {
+    showToast('Erreur: ' + error.message, 'error');
+    return;
+  }
+  showToast('Congé supprimé ✓', 'success');
+  await loadConges();
+  await loadBlockedDates();
+}
+
+document.getElementById('btn-add-conge').addEventListener('click', async () => {
+  const date = document.getElementById('conge-date').value;
+  const barber = document.getElementById('conge-barber').value;
+  if(!date) return;
+  const { error } = await db.from('blocked_dates').insert({ blocked_date: date, barber: barber || null });
+  if(error) {
+    showToast('Déjà bloqué!', 'error');
+  } else {
+    showToast('Jour bloqué ✓', 'success');
+    document.getElementById('conge-date').value = '';
+    loadConges();
+    loadBlockedDates();
+  }
+});
+
+window.deleteConge = deleteConge;
+
+// ── CUSTOM HOURS ──
+async function loadCustomHours() {
+  const { data } = await db.from('custom_hours').select('*').order('date').order('time_start');
+  const list = document.getElementById('ch-list');
+  if (!data || data.length === 0) { list.innerHTML = '<div style="font-size:.75rem;color:rgba(0,0,0,0.3);text-align:center;padding:.5rem">Aucun horaire custom</div>'; return; }
+  list.innerHTML = data.map(r => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem;background:rgba(128,207,255,0.05);border:1px solid rgba(128,207,255,0.15)">
+      <span style="font-size:.8rem">${r.type === 'block' ? '🔴' : '🟢'} ${formatDate(r.date)} — ${r.time_start.slice(0,5)} → ${r.time_end.slice(0,5)} ${r.barber ? `<span style="color:#111111;font-size:.7rem">· ${r.barber}</span>` : '<span style="color:rgba(0,0,0,0.3);font-size:.7rem">· Tous</span>'}</span>
+      <button onclick="deleteCustomHour(${r.id})" style="background:none;border:none;color:#ff8080;cursor:pointer;font-size:1rem">×</button>
+    </div>
+  `).join('');
+}
+
+async function deleteCustomHour(id) {
+  const { error } = await db.from('custom_hours').delete().eq('id', id);
+  if (error) { showToast('Erreur!', 'error'); return; }
+  showToast('Supprimé ✓', 'success');
+  loadCustomHours();
+}
+window.deleteCustomHour = deleteCustomHour;
+
+document.getElementById('btn-add-ch').addEventListener('click', async () => {
+  const date = document.getElementById('ch-date').value;
+  const type = document.getElementById('ch-type').value;
+  const startRaw = document.getElementById('ch-start').value;
+  const endRaw = document.getElementById('ch-end').value;
+  if (!date || !startRaw || !endRaw) { showToast('Remplissez tous les champs ⚠️', 'error'); return; }
+
+  function toTime24(val) {
+    if (!val) return null;
+    if (/^\d{2}:\d{2}/.test(val)) return val.slice(0,5) + ':00';
+    const [time, period] = val.split(' ');
+    let [h, m] = time.split(':').map(Number);
+    if (period === 'PM' && h !== 12) h += 12;
+    if (period === 'AM' && h === 12) h = 0;
+    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00`;
+  }
+
+  const start = toTime24(startRaw);
+  const end = toTime24(endRaw);
+  const chBarber = document.getElementById('ch-barber').value || null;
+
+  if (start >= end) {
+    const nextDay = new Date(date);
+    nextDay.setDate(nextDay.getDate() + 1);
+    const nextDayStr = (() => { const y=nextDay.getFullYear(),m=String(nextDay.getMonth()+1).padStart(2,'0'),d=String(nextDay.getDate()).padStart(2,'0'); return `${y}-${m}-${d}`; })();
+    const [r1, r2] = await Promise.all([
+      db.from('custom_hours').insert({ date, type, time_start: start, time_end: '23:59:00', barber: chBarber }),
+      db.from('custom_hours').insert({ date: nextDayStr, type, time_start: '00:00:00', time_end: end, barber: chBarber })
+    ]);
+    if (r1.error || r2.error) { showToast('Erreur!', 'error'); return; }
+    showToast('Horaire overnight appliqué ✓ (2 jours)', 'success');
+  } else {
+    const { error } = await db.from('custom_hours').insert({ date, type, time_start: start, time_end: end, barber: chBarber });
+    if (error) { showToast('Erreur: ' + error.message, 'error'); return; }
+    showToast('Horaire appliqué ✓', 'success');
+  }
+
+  document.getElementById('ch-date').value = '';
+  document.getElementById('ch-start').value = '';
+  document.getElementById('ch-end').value = '';
+  loadCustomHours();
+});
+
+// ── ADMIN ──
+let ADMIN_PASS = 'Bangs2024!'; // Default fallback
+
+async function loadAdminPass() {
+  try {
+    const { data } = await db.from('admin_config').select('value').eq('key', 'admin_password').single();
+    if (data?.value) ADMIN_PASS = data.value;
+  } catch(e) { /* use default */ }
+}
+let adminAuth = false;
+
+document.getElementById('btn-admin-login').addEventListener('click', () => {
+  const pass = document.getElementById('inp-admin-pass').value;
+  if(pass === ADMIN_PASS) {
+    adminAuth = true;
+    document.getElementById('admin-login').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    loadConges();
+    loadCustomHours();
+    loadAdminProducts();
+    loadAdminOrders();
+    loadBlacklist();
+    loadBarbersConfig();
+    loadServicesConfig();
+    loadCredits();
+    // Update stats
+    db.from('reservations').select('*', {count:'exact', head:true}).eq('reservation_date', getToday()).neq('status','cancelled').then(({count}) => {
+      document.getElementById('stat-today').textContent = count || 0;
+    });
+    db.from('reservations').select('*', {count:'exact', head:true}).neq('status','cancelled').then(({count}) => {
+      document.getElementById('stat-total').textContent = count || 0;
+    });
+    // Default history dates: last 30 days
+    const t = getToday();
+    const from = new Date(); from.setDate(from.getDate()-30);
+    const fromStr = (() => { const y=from.getFullYear(),m=String(from.getMonth()+1).padStart(2,'0'),d=String(from.getDate()).padStart(2,'0'); return `${y}-${m}-${d}`; })();
+    document.getElementById('hist-date-from').value = fromStr;
+    document.getElementById('hist-date-to').value = t;
+  } else {
+    document.getElementById('admin-error').style.display = 'block';
+  }
+});
+
+document.getElementById('btn-admin-logout').addEventListener('click', () => {
+  adminAuth = false;
+  document.getElementById('admin-login').style.display = 'flex';
+  document.getElementById('admin-dashboard').style.display = 'none';
+  document.getElementById('inp-admin-pass').value = '';
+  showPage('home');
+});
+
+document.getElementById('nav-admin').addEventListener('click', () => showPage('admin'));
+
+
+
+
+async function cancelBooking(id) {
+  await db.from('reservations').update({status: 'cancelled'}).eq('id', id);
+  showToast('Réservation annulée | تم الإلغاء', 'error');
+  }
+
+
+// ── TV MODE ──
+let tvInterval = null;
+
+function openTVMode() {
+  document.getElementById('tv-mode').classList.add('active');
+  renderTVMode();
+  startTVRefresh();
+}
+
+function closeTVMode() {
+  document.getElementById('tv-mode').classList.remove('active');
+  if(tvInterval) clearInterval(tvInterval);
+}
+
+function startTVRefresh() {
+  if(tvInterval) clearInterval(tvInterval);
+  // Progress bar animation
+  const bar = document.getElementById('tv-progress');
+  bar.style.width = '0%';
+  setTimeout(() => { bar.style.width = '100%'; }, 100);
+  tvInterval = setInterval(() => {
+    renderTVMode();
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    setTimeout(() => { bar.style.transition = 'width 30s linear'; bar.style.width = '100%'; }, 100);
+  }, 30000);
+}
+
+async function renderTVMode() {
+  const now = new Date();
+  document.getElementById('tv-clock').textContent = now.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+  document.getElementById('tv-date').textContent = now.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
+
+  const today = getToday();
+  const { data } = await db.from('reservations').select('*')
+    .eq('reservation_date', today)
+    .order('reservation_time', {ascending: true});
+
+  const all = data || [];
+  const nowHHMM = now.toTimeString().slice(0,5);
+
+  const grid = document.getElementById('tv-grid');
+  grid.style.display = 'block';
+  grid.style.overflowY = 'auto';
+
+  const colHeaders = BARBERS.map(b => `
+    <div style="flex:1;text-align:center;padding:.5rem .3rem;border-left:1px solid #93c5fd;background:#bfdbfe">
+      ${b.photo 
+        ? `<img src="${b.photo}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;margin:0 auto .3rem;border:2px solid #60a5fa">`
+        : `<div style="font-size:1.4rem">${b.emoji}</div>`}
+      <div style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;color:#0f172a">${b.name}</div>
+    </div>
+  `).join('');
+
+  const rows = ALL_SLOTS.map(slot => {
+    const isPast = slot < nowHHMM;
+    const isCurrent = slot === ALL_SLOTS.find(s => s >= nowHHMM);
+
+    const cells = BARBERS.map(b => {
+      // Priority: calling > confirmed > done > cancelled/archived
+      const rdvs = all.filter(r => r.barber === b.name && r.reservation_time.slice(0,5) === slot);
+      const rdv = rdvs.find(r => r.status === 'calling') 
+        || rdvs.find(r => r.status === 'confirmed')
+        || rdvs.find(r => r.status === 'done')
+        || rdvs[0];
+      const isCalling = rdv?.status === 'calling';
+      const isDone = rdv?.status === 'done';
+      const isCancelled = rdv?.status === 'cancelled';
+      const isArchived = rdv?.status === 'archived';
+      const showRdv = rdv;
+
+      let bg = '#dbeafe';
+      if (isCalling) bg = '#111111';
+      else if (isDone || isArchived) bg = '#e0f2fe';
+      else if (isCancelled) bg = '#fee2e2';
+      
+      else if (isPast) bg = '#e0f2fe';
+
+      return `
+        <div style="flex:1;border-left:1px solid var(--border);padding:.3rem .5rem;min-height:44px;background:${bg}">
+          ${showRdv && !isCancelled ? `
+            <div style="font-size:.75rem;font-weight:700;color:${isCalling?'#ffffff':(isDone||isArchived)?'rgba(0,0,0,0.3)':'#111'};${(isDone||isArchived)?'text-decoration:line-through':''}">#${rdv.daily_ticket||rdv.id} ${rdv.client_name}</div>
+            <div style="font-size:.6rem;color:${isCalling?'rgba(255,255,255,0.6)':'rgba(0,0,0,0.35)'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${rdv.service}</div>
+            ${isDone ? `<div style="font-size:.55rem;color:#34d399;margin-top:.1rem">✓ Terminé</div>` : ''}
+            ${isArchived ? `<div style="font-size:.55rem;color:#aaa;margin-top:.1rem">🗂 Vidé</div>` : ''}
+          ` : isPast ? '' : ''}
+        </div>
+      `;
+    }).join('');
+
+    return `
+      <div style="display:flex;border-bottom:1px solid var(--border);background:${isCurrent?'rgba(0,0,0,0.05)':isPast?'rgba(0,0,0,0.015)':'transparent'}">
+        <div style="width:52px;flex-shrink:0;padding:.3rem .4rem;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:.75rem;font-weight:${isCurrent?'700':'400'};color:${isPast?'rgba(0,0,0,0.25)':isCurrent?'#111':'rgba(0,0,0,0.5)'}">${slot}</span>
+        </div>
+        ${cells}
+      </div>
+    `;
+  }).join('');
+
+  // Stats summary for history
+  const totalDone = all.filter(r => r.status === 'done').length;
+  const totalCalling = all.filter(r => r.status === 'calling').length;
+  const totalConfirmed = all.filter(r => r.status === 'confirmed').length;
+  const totalCancelled = all.filter(r => r.status === 'cancelled').length;
+
+  grid.innerHTML = `
+    <!-- History bar -->
+    <div style="background:#93c5fd;color:#0f172a;padding:.5rem 1rem;display:flex;gap:1.5rem;font-size:.7rem;align-items:center;border-bottom:1px solid #60a5fa">
+      <span style="font-weight:600;letter-spacing:.1em">HISTORIQUE</span>
+      <span>✓ Terminés: <strong>${totalDone}</strong></span>
+      <span>⚡ En cours: <strong>${totalCalling}</strong></span>
+      <span>📅 En attente: <strong>${totalConfirmed}</strong></span>
+      ${totalCancelled > 0 ? `<span style="color:#ff8080">✗ Annulés: <strong>${totalCancelled}</strong></span>` : ''}
+      <span style="margin-left:auto;opacity:.75">${all.length} RDV total aujourd'hui</span>
+    </div>
+    <div style="position:sticky;top:36px;z-index:2;background:#dbeafe;border-bottom:2px solid #60a5fa">
+      <div style="display:flex">
+        <div style="width:52px;flex-shrink:0"></div>
+        ${colHeaders}
+      </div>
+    </div>
+    ${rows}
+  `;
+}
+
+document.getElementById('btn-tv-mode').addEventListener('click', openTVMode);
+
+// Update TV clock every minute
+setInterval(() => {
+  if(document.getElementById('tv-mode').classList.contains('active')) {
+    const now = new Date();
+    document.getElementById('tv-clock').textContent = now.toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+  }
+}, 60000);
+
+// ── GLOBALS for onclick ──
+window.selectService = selectService;
+window.selectDate = selectDate;
+window.selectSlot = selectSlot;
+window.selectBarber = selectBarber;
+window.cancelBooking = cancelBooking;
+async function deleteBooking(id) { /* removed */ }
+window.deleteBooking = deleteBooking;
+window.showPage = showPage;
+window.goStep = goStep;
+window.confirmBooking = confirmBooking;
+window.resetBooking = resetBooking;
+window.validateStep3 = validateStep3;
+window.prevMonth = prevMonth;
+window.nextMonth = nextMonth;
+
+// ── STATS MODE ──
+async function openStatsMode() {
+  document.getElementById('stats-mode').style.display = 'block';
+  await loadStats();
+}
+
+function closeStatsMode() {
+  document.getElementById('stats-mode').style.display = 'none';
+}
+window.closeStatsMode = closeStatsMode;
+
+async function loadStats() {
+  const { data } = await db.from('reservations').select('*').neq('status', 'cancelled');
+  if (!data) return;
+
+  const today = new Date();
+  const todayStr = getToday();
+
+  // KPIs
+  const todayRdv = data.filter(r => r.reservation_date === todayStr).length;
+  const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+  const weekRdv = data.filter(r => new Date(r.reservation_date) >= weekAgo).length;
+  const totalRdv = data.length;
+
+  // Calculate total revenue
+  let totalRevenue = 0;
+  data.forEach(r => {
+    const serviceNames = r.service ? r.service.split(' + ') : [];
+    serviceNames.forEach(name => {
+      const svc = SERVICES.find(s => s.name === name.trim());
+      if (svc?.price && svc.price !== 'À confirmer') {
+        const num = parseInt(svc.price.replace(/\s/g,'').replace('DA','').replace(',',''));
+        if (!isNaN(num) && num > 0) totalRevenue += num;
+      }
+    });
+  });
+
+  document.getElementById('stats-kpis').innerHTML = `
+    <div style="background:#ffffff;border:1px solid var(--border);border-top:2px solid #000000;padding:.8rem;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#000000">${todayRdv}</div>
+      <div style="font-size:.55rem;color:rgba(0,0,0,0.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem">Aujourd'hui</div>
+    </div>
+    <div style="background:#ffffff;border:1px solid var(--border);border-top:2px solid #a78bfa;padding:.8rem;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#a78bfa">${weekRdv}</div>
+      <div style="font-size:.55rem;color:rgba(0,0,0,0.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem">7 jours</div>
+    </div>
+    <div style="background:#ffffff;border:1px solid var(--border);border-top:2px solid #222222;padding:.8rem;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:1.8rem;color:#444444">${totalRdv}</div>
+      <div style="font-size:.55rem;color:rgba(0,0,0,0.4);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem">Total RDV</div>
+    </div>
+    <div style="background:#111111;border:1px solid #111;border-top:2px solid #111;padding:.8rem;text-align:center">
+      <div style="font-family:'Playfair Display',serif;font-size:1.6rem;color:#ffffff">${totalRevenue > 0 ? totalRevenue.toLocaleString() : '—'}</div>
+      <div style="font-size:.55rem;color:rgba(255,255,255,0.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem">${totalRevenue > 0 ? 'DA revenus' : 'Prix non définis'}</div>
+    </div>
+  `;
+
+  // Chart 7 days
+  const days = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const str = (() => { const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0'); return `${y}-${m}-${day}`; })();
+    const count = data.filter(r => r.reservation_date === str).length;
+    days.push({ str, count, label: d.toLocaleDateString('fr-FR', {weekday:'short'}) });
+  }
+  const maxCount = Math.max(...days.map(d => d.count), 1);
+  document.getElementById('stats-chart').innerHTML = days.map(d => `
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.3rem">
+      <div style="font-size:.65rem;color:rgba(0,0,0,0.5)">${d.count || ''}</div>
+      <div style="width:100%;background:${d.str===todayStr?'#000000':'rgba(167,139,250,0.6)'};height:${Math.max(4, (d.count/maxCount)*80)}px;transition:height .5s"></div>
+    </div>
+  `).join('');
+  document.getElementById('stats-chart-labels').innerHTML = days.map(d => `
+    <div style="flex:1;text-align:center;font-size:.6rem;color:rgba(0,0,0,0.4)">${d.label}</div>
+  `).join('');
+
+  // Services
+  const serviceCounts = {};
+  data.forEach(r => { serviceCounts[r.service] = (serviceCounts[r.service] || 0) + 1; });
+  const sortedServices = Object.entries(serviceCounts).sort((a,b) => b[1]-a[1]);
+  const maxSvc = sortedServices[0]?.[1] || 1;
+  document.getElementById('stats-services').innerHTML = sortedServices.map(([name, count]) => `
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem">
+        <span>${name}</span><span style="color:#111111;font-weight:600">${count}</span>
+      </div>
+      <div style="background:rgba(0,0,0,0.05);height:6px;border-radius:3px">
+        <div style="background:#ffffff;height:100%;border-radius:3px;width:${(count/maxSvc)*100}%;transition:width .5s"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // Barbers
+  const barberCounts = {};
+  data.forEach(r => { if(r.barber) barberCounts[r.barber] = (barberCounts[r.barber] || 0) + 1; });
+  const sortedBarbers = Object.entries(barberCounts).sort((a,b) => b[1]-a[1]);
+  const maxBar = sortedBarbers[0]?.[1] || 1;
+  document.getElementById('stats-barbers').innerHTML = sortedBarbers.map(([name, count], i) => `
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <div style="font-size:.9rem">${['🥇','🥈','🥉','4️⃣'][i] || '•'}</div>
+      <div style="flex:1">
+        <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.3rem">
+          <span>${name}</span><span style="color:#444444;font-weight:600">${count} rdv</span>
+        </div>
+        <div style="background:rgba(0,0,0,0.05);height:6px;border-radius:3px">
+          <div style="background:#222222;height:100%;border-radius:3px;width:${(count/maxBar)*100}%;transition:width .5s"></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Monthly bilan — last 6 months with revenue estimation
+  const monthlyData = {};
+  data.forEach(r => {
+    const month = r.reservation_date?.slice(0, 7);
+    if (!month) return;
+    if (!monthlyData[month]) monthlyData[month] = { count: 0, revenue: 0 };
+    monthlyData[month].count++;
+    // Extract price from services
+    const serviceNames = r.service ? r.service.split(' + ') : [];
+    serviceNames.forEach(name => {
+      const svc = SERVICES.find(s => s.name === name.trim());
+      if (svc?.price && svc.price !== 'À confirmer') {
+        const num = parseInt(svc.price.replace(/\s/g,'').replace('DA','').replace(',',''));
+        if (!isNaN(num) && num > 0) monthlyData[month].revenue += num;
+      }
+    });
+  });
+  const sortedMonths = Object.entries(monthlyData).sort((a,b) => a[0].localeCompare(b[0])).slice(-6);
+  const maxMonth = Math.max(...sortedMonths.map(m => m[1].count), 1);
+  const monthNames = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
+
+  document.getElementById('stats-monthly').innerHTML = sortedMonths.length === 0
+    ? '<div style="font-size:.75rem;color:rgba(0,0,0,0.3)">Pas encore de données</div>'
+    : sortedMonths.map(([month, {count, revenue}]) => {
+        const [y, m] = month.split('-');
+        const label = `${monthNames[parseInt(m)-1]} ${y}`;
+        return `
+          <div style="padding:.6rem .8rem;background:#ffffff;border:1px solid var(--border);margin-bottom:.3rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+              <span style="font-weight:600;font-size:.85rem">${label}</span>
+              <div style="text-align:right">
+                <span style="font-size:.82rem;font-weight:600">${count} rdv</span>
+                ${revenue > 0 ? `<span style="font-size:.8rem;color:#111;font-weight:700;margin-left:.6rem">${revenue.toLocaleString()} DA</span>` : `<span style="font-size:.7rem;color:rgba(0,0,0,0.3);margin-left:.5rem">prix non définis</span>`}
+              </div>
+            </div>
+            <div style="background:rgba(0,0,0,0.07);height:5px;border-radius:3px">
+              <div style="background:#111111;height:100%;border-radius:3px;width:${(count/maxMonth)*100}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+}
+
+document.getElementById('btn-stats-mode').addEventListener('click', openStatsMode);
+
+async function activateAlerts() {
+  if (!('Notification' in window)) {
+    showToast('Notifications non supportées sur ce navigateur', 'error');
+    return;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission === 'granted') {
+    document.getElementById('notif-btn-wrap').innerHTML = 
+      '<div style="text-align:center;color:#444444;font-size:.8rem;padding:.5rem">✓ Alertes activées — vous serez notifié!</div>';
+    showToast('Alertes activées! ✓', 'success');
+  } else {
+    showToast('Permission refusée — restez sur la page pour recevoir les alertes', 'error');
+  }
+}
+window.activateAlerts = activateAlerts;
+
+// ── LIVE QUEUE ──
+async function loadLiveQueue() {
+  const today = getToday();
+  const container = document.getElementById('queue-content');
+  
+  // Show instant skeleton while loading
+  if (!container.hasChildNodes()) {
+    container.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">` +
+      (BARBERS.length > 0 ? BARBERS : [{name:'...'},{name:'...'},{name:'...'},{name:'...'}]).map(b => `
+        <div style="background:#f0f0f0;padding:.4rem .6rem;display:flex;align-items:center;gap:.5rem;animation:pulse 1s infinite">
+          <div style="width:28px;height:28px;border-radius:50%;background:#ddd;flex-shrink:0"></div>
+          <div style="flex:1"><div style="height:8px;background:#ddd;border-radius:4px;margin-bottom:4px;width:60%"></div><div style="height:10px;background:#ddd;border-radius:4px;width:40%"></div></div>
+        </div>`).join('') + `</div>`;
+  }
+  const [activeRes, doneRes] = await Promise.all([
+    db.from('reservations').select('*').eq('reservation_date', today).in('status', ['confirmed', 'calling']).order('daily_ticket', { ascending: true }),
+    db.from('reservations').select('barber').eq('reservation_date', today).eq('status', 'done')
+  ]);
+
+  const allData = activeRes.data || [];
+  const doneData = doneRes.data || [];
+
+  // Show my ticket banner
+  const myTicketBanner = document.getElementById('my-ticket-banner');
+  try {
+    const stored = localStorage.getItem('my_ticket');
+    if (stored) {
+      const mt = JSON.parse(stored);
+      if (mt.date === today) {
+        // Find my position in barber's queue
+        const barberData = allData.filter(r => r.barber === mt.barber);
+        const myTicket = barberData.find(r => r.id === mt.id);
+        // Position = how many tickets are AHEAD of me (smaller number, still active)
+        const myNum = myTicket?.daily_ticket || myTicket?.id || 9999;
+        const position = myTicket 
+          ? barberData.filter(r => (r.daily_ticket || r.id) < myNum).length
+          : null;
+        myTicketBanner.innerHTML = `
+          <div style="background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.15);padding:.5rem .8rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center">
+            <div>
+              <div style="font-size:.5rem;color:rgba(0,0,0,0.4);letter-spacing:.1em;text-transform:uppercase">Mon ticket · ${mt.barber}</div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.2rem;color:#111111;font-weight:700;line-height:1.2">#${mt.ticket}</div>
+            </div>
+            <div style="text-align:right">
+              ${position === null ? `<div style="color:rgba(0,0,0,0.3);font-size:.7rem">Terminé ✓</div>` :
+                position === 0 ? `<div style="color:#111;font-weight:600;font-size:.75rem">C'est votre tour! 🔔</div>` :
+                `<div style="color:rgba(0,0,0,0.5);font-size:.7rem">${position} avant vous</div>`}
+              <button onclick="localStorage.removeItem('my_ticket');loadLiveQueue()" style="background:none;border:none;color:rgba(0,0,0,0.2);cursor:pointer;font-size:.6rem">✕</button>
+            </div>
+          </div>
+        `;
+      } else {
+        localStorage.removeItem('my_ticket');
+        myTicketBanner.innerHTML = '';
+      }
+    } else {
+      myTicketBanner.innerHTML = '';
+    }
+  } catch(e) {
+    myTicketBanner.innerHTML = '';
+  }
+
+  container.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">` +
+    BARBERS.map(b => {
+      const barberData = allData.filter(r => r.barber === b.name);
+      const current = barberData.find(r => r.status === 'calling') || barberData[0];
+      const total = barberData.length;
+      const busy = total > 0;
+      const doneCount = doneData.filter(r => r.barber === b.name).length;
+      return `
+        <div style="background:${busy ? '#111111' : '#ffffff'};border:1px solid ${busy ? '#111' : 'rgba(0,0,0,0.1)'};padding:.7rem .9rem;display:flex;align-items:center;gap:.7rem">
+          ${b.photo 
+            ? `<img src="${b.photo}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0">`
+            : `<div style="width:52px;height:52px;border-radius:50%;background:${busy?'rgba(255,255,255,0.1)':'#eee'};display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">${b.emoji}</div>`}
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div style="font-size:.85rem;font-weight:600;color:${busy ? '#ffffff' : '#111'}">${b.name}</div>
+              ${doneCount > 0 ? `<div style="font-size:.65rem;color:${busy?'rgba(255,255,255,0.4)':'#bbb'}">✓${doneCount}</div>` : ''}
+            </div>
+            ${current
+              ? `<div style="display:flex;justify-content:space-between;align-items:center">
+                  <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#ffffff">#${current.daily_ticket || current.id}</div>
+                  ${total > 1 ? `<div style="font-size:.65rem;color:rgba(255,255,255,0.5)">+${total-1} en attente</div>` : ''}
+                 </div>`
+              : `<div style="font-size:.78rem;color:#888">✓ Libre</div>`
+            }
+          </div>
+        </div>
+      `;
+    }).join('') + `</div>`;
+}
+
+// Refresh queue every 30s
+setInterval(() => {
+  if (document.getElementById('page-home').classList.contains('active')) {
+    loadLiveQueue();
+  }
+}, 30000);
+
+// Realtime refresh for live queue
+db.channel('live-queue-channel')
+  .on('postgres_changes', {
+    event: '*',
+    schema: 'public',
+    table: 'reservations'
+  }, () => {
+    if (document.getElementById('page-home').classList.contains('active')) {
+      loadLiveQueue();
+    }
+  })
+  .subscribe();
+
+// ── ACTIVATE ALERTS ──
+const VAPID_PUBLIC = 'BERMiRT5JXwFxZDo2pp2rjcfKfo7f464g9znXrNLr2Bn0etaigEL-JPDD1YwLigsozK2QAodpCOrbz5gu1FvpPo';
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
+}
+
+async function requestPushPermission(reservationId) {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+  try {
+    const reg = await navigator.serviceWorker.register('/sw.js');
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') return;
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC)
+    });
+    // Save subscription to reservation
+    if (reservationId) {
+      await db.from('reservations').update({
+        notif_token: JSON.stringify(sub)
+      }).eq('id', reservationId);
+    }
+    // Also setup realtime listener for this reservation
+    setupRealtimeListener(reservationId);
+  } catch(e) {
+  }
+}
+
+function setupRealtimeListener(reservationId) {
+  if (!reservationId) return;
+  // Store reservation ID for this session
+  window._myReservationId = reservationId;
+  
+  db.channel('bangs-calling')
+    .on('postgres_changes', {
+      event: 'UPDATE',
+      schema: 'public',
+      table: 'reservations'
+    }, payload => {
+      // Check if this update is for MY reservation
+      if (payload.new?.id === window._myReservationId && payload.new?.status === 'calling') {
+        if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
+        playNotificationSound();
+        showTicketAlert(
+          payload.new.daily_ticket || payload.new.id,
+          payload.new.client_name,
+          payload.new.service,
+          payload.new.barber
+        );
+        // Browser notification if permission granted
+        if (Notification.permission === 'granted') {
+          new Notification('BANGS Barber Shop 💈', {
+            body: `C'est votre tour! Ticket #${payload.new.daily_ticket || payload.new.id}`,
+            icon: 'https://i.ibb.co/TM7bCGmD/5888968061031747260-1.jpg',
+            vibrate: [300, 100, 300]
+          });
+        }
+      }
+    })
+    .subscribe((status) => {
+    });
+}
+
+// Admin: Appeler suivant
+document.getElementById('btn-appeler-suivant').addEventListener('click', () => {
+  // Show barber select modal instead of prompt (works on mobile)
+  const modal = document.getElementById('barber-select-modal');
+  const btns = document.getElementById('barber-select-buttons');
+  btns.innerHTML = BARBERS.map(b => `
+    <button onclick="appellerSuivantPour('${b.name}')" style="padding:.9rem;background:#111111;border:none;color:#ffffff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:.7rem;width:100%">
+      ${b.photo ? `<img src="${b.photo}" style="width:32px;height:32px;border-radius:50%;object-fit:cover">` : `<span style="font-size:1.2rem">${b.emoji}</span>`}
+      ${b.name}
+    </button>
+  `).join('');
+  modal.style.display = 'flex';
+});
+
+function closeBarberModal() {
+  document.getElementById('barber-select-modal').style.display = 'none';
+}
+window.closeBarberModal = closeBarberModal;
+
+async function appellerSuivantPour(barber) {
+  closeBarberModal();
+  const today = getToday();
+
+  // Mark current 'calling' as done first
+  await db.from('reservations')
+    .update({ status: 'done' })
+    .eq('reservation_date', today)
+    .eq('barber', barber)
+    .eq('status', 'calling');
+
+  // Get next confirmed — order by daily_ticket (smallest first)
+  const { data } = await db.from('reservations')
+    .select('*')
+    .eq('reservation_date', today)
+    .eq('barber', barber)
+    .eq('status', 'confirmed')
+    .order('daily_ticket', { ascending: true })
+    .limit(1);
+
+  if (!data || data.length === 0) {
+    showToast(`Aucun client en attente pour ${barber}`, 'error');
+        return;
+  }
+
+  const next = data[0];
+  await db.from('reservations').update({ status: 'calling' }).eq('id', next.id);
+  showToast(`🔔 ${next.client_name} appelé! Ticket #${next.daily_ticket || next.id}`, 'success');
+    loadLiveQueue();
+}
+window.appellerSuivantPour = appellerSuivantPour;
+
+// ── SPLASH SCREEN ──
+window.addEventListener('load', async () => {
+  // Load barbers & services + live queue + admin pass in parallel
+  await Promise.all([refreshDynamicData(), loadAdminPass()]).catch(()=>{});
+  loadLiveQueue(); // Load queue right away — no wait
+  // Re-render if booking page active
+  renderServices();
+  // Populate dynamic admin selects (deferred to ensure function is defined)
+  try { populateAdminSelects(); } catch(e) {}
+  const logo = document.getElementById('splash-logo');
+  const bar = document.getElementById('splash-bar');
+  const splash = document.getElementById('splash');
+
+  // Animate in
+  setTimeout(() => {
+    logo.style.opacity = '1';
+    logo.style.transform = 'scale(1)';
+  }, 100);
+
+  setTimeout(() => {
+    bar.style.width = '120px';
+  }, 400);
+
+  // Fade out
+  setTimeout(() => {
+    splash.style.opacity = '0';
+    splash.style.transition = 'opacity .5s ease';
+  }, 1800);
+
+  setTimeout(() => {
+    splash.style.display = 'none';
+  }, 2300);
+});
+
+
+const alertedTickets = new Set();
+
+function speakTicket(num) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const msg = new SpeechSynthesisUtterance(`Ticket numéro ${num}`);
+  msg.lang = 'fr-FR';
+  msg.rate = 0.85;
+  msg.pitch = 1;
+  msg.volume = 1;
+  window.speechSynthesis.speak(msg);
+}
+
+function showTicketAlert(ticket, name, service, barber) {
+  const overlay = document.getElementById('ticket-alert-overlay');
+  document.getElementById('alert-ticket-num').textContent = '#' + ticket;
+  document.getElementById('alert-ticket-name').textContent = name;
+  document.getElementById('alert-ticket-info').textContent = service + (barber ? ' · ' + barber : '');
+  overlay.style.display = 'flex';
+  speakTicket(ticket);
+  // Auto close after 10s
+  setTimeout(() => closeTicketAlert(), 10000);
+}
+
+function closeTicketAlert() {
+  document.getElementById('ticket-alert-overlay').style.display = 'none';
+}
+window.closeTicketAlert = closeTicketAlert;
+
+async function checkUpcomingTickets() {
+  if (!adminAuth) return;
+  const now = new Date();
+  const today = getToday();
+  const hhmm = now.toTimeString().slice(0,5);
+
+  const { data } = await db.from('reservations')
+    .select('*')
+    .eq('reservation_date', today)
+    .eq('reservation_time', hhmm)
+    .eq('status', 'confirmed');
+
+  if (!data) return;
+  data.forEach(r => {
+    const key = r.id + '-' + hhmm;
+    if (!alertedTickets.has(key)) {
+      alertedTickets.add(key);
+      showTicketAlert(r.daily_ticket || r.id, r.client_name, r.service, r.barber);
+    }
+  });
+}
+
+// Check every 30 seconds
+setInterval(checkUpcomingTickets, 30000);
+
+</script>
+
+<!-- Order Modal -->
+<div id="order-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
+  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000">🛍 Commander</h2>
+      <button onclick="closeOrderModal()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
+    </div>
+    <div id="order-product-info" style="padding:.8rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);margin-bottom:1rem;font-size:.85rem"></div>
+    <div class="form-group">
+      <label class="form-label">Votre nom</label>
+      <input class="form-input" id="order-name" type="text" placeholder="Ex: Ahmed">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Téléphone</label>
+      <input class="form-input" id="order-phone" type="tel" placeholder="Ex: 0551258141">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Quantité</label>
+      <div style="display:flex;align-items:center;gap:1rem">
+        <button onclick="changeQty(-1)" style="background:rgba(0,0,0,0.1);border:1px solid var(--border);color:white;width:2.5rem;height:2.5rem;font-size:1.2rem;cursor:pointer">−</button>
+        <span id="order-qty" style="font-size:1.2rem;font-weight:600;min-width:2rem;text-align:center">1</span>
+        <button onclick="changeQty(1)" style="background:rgba(0,0,0,0.1);border:1px solid var(--border);color:white;width:2.5rem;height:2.5rem;font-size:1.2rem;cursor:pointer">+</button>
+      </div>
+    </div>
+    <button id="btn-order-confirm" class="btn-next" style="margin-top:.5rem">✓ Confirmer la commande</button>
+  </div>
+</div>
+
+<!-- Barber Select Modal -->
+<div id="barber-select-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;align-items:center;justify-content:center;padding:1.5rem">
+  <div style="background:#ffffff;width:100%;max-width:360px;padding:1.5rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-bottom:.5rem">Appeler suivant</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1.2rem">Quel coiffeur?</h3>
+    <div id="barber-select-buttons" style="display:flex;flex-direction:column;gap:.6rem"></div>
+    <button onclick="closeBarberModal()" style="margin-top:1rem;width:100%;padding:.8rem;background:none;border:1px solid rgba(0,0,0,0.15);color:rgba(0,0,0,0.4);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem">Annuler</button>
+  </div>
+</div>
+
+<!-- Edit Service Modal -->
+<div id="edit-service-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;align-items:flex-start;justify-content:center;padding:1.5rem;overflow-y:auto">
+  <div style="background:#ffffff;width:100%;max-width:400px;padding:1.5rem;margin-top:2rem">
+    <div style="font-size:.6rem;letter-spacing:.2em;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-bottom:.3rem">Modifier service</div>
+    <h3 id="edit-svc-title" style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:1rem"></h3>
+    <input type="hidden" id="edit-svc-id">
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <input class="form-input" id="edit-svc-price" type="number" placeholder="Prix en DA" style="font-size:.8rem" min="0">
+      <input class="form-input" id="edit-svc-duration" type="number" placeholder="Durée en minutes" style="font-size:.8rem" min="5">
+      <input class="form-input" id="edit-svc-desc" type="text" placeholder="Description (optionnel)" style="font-size:.8rem">
+      <input class="form-input" id="edit-svc-cat-logo" type="url" placeholder="① URL logo catégorie" style="font-size:.8rem">
+      <input class="form-input" id="edit-svc-emoji" type="url" placeholder="② URL logo service" style="font-size:.8rem">
+      <input class="form-input" id="edit-svc-image" type="url" placeholder="③ URL photo service" style="font-size:.8rem">
+    </div>
+    <div style="display:flex;gap:.7rem;margin-top:1.2rem">
+      <button onclick="saveServiceEdit()" style="flex:1;background:#c4787e;border:none;color:#ffffff;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600">✓ Enregistrer</button>
+      <button onclick="closeEditServiceModal()" style="flex:1;background:none;border:1px solid rgba(0,0,0,0.15);color:rgba(0,0,0,0.5);padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- Ticket Alert Overlay -->
+<div id="ticket-alert-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem" onclick="closeTicketAlert()">
+  <div style="font-size:.8rem;letter-spacing:.4em;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-bottom:1rem">C'est l'heure du client</div>
+  <div style="font-family:'Playfair Display',serif;font-size:8rem;font-weight:700;color:#ffffff;line-height:1" id="alert-ticket-num">#1</div>
+  <div style="font-size:1.6rem;font-weight:600;color:white;margin-top:1rem" id="alert-ticket-name">Ahmed</div>
+  <div style="font-size:1rem;color:rgba(255,255,255,0.5);margin-top:.5rem" id="alert-ticket-info">Coupe · Younes</div>
+  <div style="margin-top:3rem;font-size:.75rem;color:rgba(255,255,255,0.25)">Appuyer pour fermer</div>
+</div>
+
+</body>
+</html>
