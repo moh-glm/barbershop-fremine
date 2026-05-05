@@ -4,29 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#c4787e">
-<title>ByBangs Women</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#000000">
+<title>BANGS Barber Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root {
-  --teal: #c4787e;
-  --teal-dark: #a85f65;
-  --teal-light: #e0a0a8;
-  --gold: #7a9e7e;
-  --gold-light: #a0c4a4;
-  --white: #3d2027;
-  --bg: #fdf6f8;
+  --teal: #222222;
+  --teal-dark: #111111;
+  --teal-light: #444444;
+  --gold: #111111;
+  --gold-light: #333333;
+  --white: #111111;
+  --bg: #f5f5f5;
   --card: #ffffff;
-  --card2: #fce8ec;
-  --border: rgba(196,120,126,0.2);
+  --card2: #f0f0f0;
+  --border: rgba(0,0,0,0.12);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  background: #fdf6f8;
-  color: #3d2027;
+  background: #f5f5f5;
+  color: #111111;
   font-family: 'DM Sans', sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
@@ -38,7 +38,7 @@ body {
 
 /* ── HERO ── */
 #page-home {
-  background: linear-gradient(160deg, #fde0e8 0%, #fdf6f8 55%, #fce4ed 100%);
+  background: linear-gradient(160deg, #e8e8e8 0%, #f5f5f5 55%, #eeeeee 100%);
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -50,43 +50,43 @@ body {
 #page-home::before {
   content:'';
   position:absolute; inset:0;
-  background: radial-gradient(ellipse at 60% 20%, rgba(196,120,126,0.06) 0%, transparent 60%),
-              radial-gradient(ellipse at 20% 80%, rgba(122,158,126,0.04) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 60% 20%, rgba(0,0,0,0.03) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.02) 0%, transparent 50%);
 }
 
 .hero-stars { display:flex; gap:.4rem; justify-content:center; margin-bottom:.8rem; }
 .hero-stars span { color:#111111; font-size:.9rem; }
 
 .hero-label {
-  font-size:.6rem; letter-spacing:.4em; color:rgba(196,120,126,0.7);
+  font-size:.6rem; letter-spacing:.4em; color:rgba(0,0,0,0.5);
   text-transform:uppercase; margin-bottom:1rem;
 }
 
 .hero-logo {
-  font-family:'Dancing Script',cursive;
-  font-size: clamp(4rem, 20vw, 7rem);
-  font-weight:700; line-height:.9;
-  color:#c4787e;
+  font-family:'Playfair Display',serif;
+  font-size: clamp(5rem, 24vw, 8rem);
+  font-weight:900; line-height:.85;
+  color:#111111;
   text-shadow: none;
   letter-spacing:-.02em;
   animation: popIn .8s cubic-bezier(.175,.885,.32,1.275) both;
 }
 
 .hero-sub {
-  font-size:.65rem; letter-spacing:.55em; color:#7a9e7e;
+  font-size:.65rem; letter-spacing:.55em; color:#111111;
   text-transform:uppercase; margin-top:.5rem;
   animation: fadeUp .7s .3s ease both;
 }
 
 .hero-divider {
   width:50px; height:1px;
-  background: linear-gradient(90deg, transparent, #c4787e, transparent);
+  background: linear-gradient(90deg, transparent, #000000, transparent);
   margin:1.5rem auto;
   animation: fadeUp .7s .4s ease both;
 }
 
 .hero-desc {
-  font-size:.8rem; color:rgba(122,158,126,0.8);
+  font-size:.8rem; color:rgba(0,0,0,0.5);
   letter-spacing:.05em; margin-bottom:2.5rem;
   animation: fadeUp .7s .5s ease both;
 }
@@ -94,7 +94,7 @@ body {
 .btn-primary {
   display:inline-flex; align-items:center; gap:.6rem;
   padding:1rem 2.2rem;
-  background: linear-gradient(135deg, #c4787e, #a85f65);
+  background: #111111;
   color:#ffffff; text-decoration:none;
   font-size:.75rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
   border:none; cursor:pointer;
@@ -103,22 +103,22 @@ body {
   animation: fadeUp .7s .6s ease both;
   font-family:'DM Sans',sans-serif;
 }
-.btn-primary:hover { background:linear-gradient(135deg, #d48890, #c4787e); transform:translateY(-2px); box-shadow:0 12px 35px rgba(0,0,0,0.1); }
+.btn-primary:hover { background:#444444; transform:translateY(-2px); box-shadow:0 12px 35px rgba(0,0,0,0.1); }
 
 .hero-info {
   display:flex; gap:2rem; justify-content:center; margin-top:3rem;
   animation: fadeUp .7s .7s ease both;
 }
 .hero-info-item { text-align:center; }
-.hero-info-item .val { font-family:'Playfair Display',serif; font-size:1.3rem; color:#c4787e; }
-.hero-info-item .lbl { font-size:.55rem; letter-spacing:.15em; color:rgba(196,120,126,0.5); text-transform:uppercase; margin-top:.2rem; }
+.hero-info-item .val { font-family:'Playfair Display',serif; font-size:1.3rem; color:#111111; }
+.hero-info-item .lbl { font-size:.55rem; letter-spacing:.15em; color:rgba(0,0,0,0.3); text-transform:uppercase; margin-top:.2rem; }
 
 /* ── NAV ── */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0; z-index:100;
-  background: rgba(255,248,250,0.97);
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(20px);
-  border-top:1px solid rgba(196,120,126,0.15);
+  border-top:1px solid rgba(0,0,0,0.1);
   display:flex; justify-content:space-around; align-items:center;
   padding:.8rem 0 calc(1.5rem + env(safe-area-inset-bottom));
   min-height: 80px;
@@ -131,18 +131,18 @@ body {
   text-transform:uppercase; transition: color .2s;
   padding:.2rem .8rem;
 }
-.nav-item.active { color:#c4787e; }
+.nav-item.active { color:#111111; }
 .nav-item svg { width:20px; height:20px; }
 
 /* ── BOOKING PAGE ── */
-#page-booking, #page-hours, #page-boutique { background:#fdf6f8; padding-bottom:calc(8rem + env(safe-area-inset-bottom)); }
+#page-booking, #page-hours, #page-boutique { background:#f5f5f5; padding-bottom:calc(8rem + env(safe-area-inset-bottom)); }
 
 .page-header {
   padding:2.5rem 1.5rem 1.5rem;
   border-bottom:1px solid var(--border);
-  background: #fdf6f8;
+  background: #f5f5f5;
 }
-.page-header .label { font-size:.6rem; letter-spacing:.35em; color:#c4787e; text-transform:uppercase; margin-bottom:.4rem; }
+.page-header .label { font-size:.6rem; letter-spacing:.35em; color:#111111; text-transform:uppercase; margin-bottom:.4rem; }
 .page-header h1 { font-family:'Playfair Display',serif; font-size:1.8rem; }
 
 /* Steps */
@@ -161,12 +161,12 @@ body {
   font-size:.7rem; font-weight:600; color:rgba(0,0,0,0.3);
   transition: all .3s;
 }
-.step.active .step-circle { border-color:#c4787e; color:#c4787e; background:rgba(196,120,126,0.08); }
-.step.done .step-circle { border-color:#c4787e; background:#c4787e; color:white; }
+.step.active .step-circle { border-color:#111111; color:#111111; background:rgba(0,0,0,0.05); }
+.step.done .step-circle { border-color:#222222; background:#222222; color:white; }
 .step-label { font-size:.55rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(0,0,0,0.3); }
-.step.active .step-label { color:#c4787e; }
+.step.active .step-label { color:#111111; }
 .step-line { flex:1; height:1px; background:rgba(0,0,0,0.1); margin-bottom:1.2rem; }
-.step-line.done { background:#c4787e; }
+.step-line.done { background:#222222; }
 
 /* Step content */
 .step-content { padding:0 1.5rem; display:none; }
@@ -183,22 +183,22 @@ body {
   cursor:pointer; transition: all .2s;
 }
 .service-card:hover, .service-card.selected {
-  border-color:#c4787e;
-  background:#fce8ec;
+  border-color:#444444;
+  background:#eeeeee;
 }
-.service-card.selected { border-color:#c4787e; }
+.service-card.selected { border-color:#111111; }
 
 .service-info { display:flex; align-items:center; gap:.9rem; }
 .service-emoji { font-size:1.4rem; }
 .service-name { font-size:.85rem; font-weight:600; }
 .service-duration { font-size:.65rem; color:rgba(0,0,0,0.4); margin-top:.15rem; }
-.service-price { font-family:'Playfair Display',serif; font-size:1.1rem; color:#c4787e; }
+.service-price { font-family:'Playfair Display',serif; font-size:1.1rem; color:#111111; }
 
 /* Calendar */
 .calendar-wrap { margin-top:1rem; }
 .cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
 .cal-nav button { background:none; border:1px solid var(--border); color:#111111; width:36px; height:36px; cursor:pointer; font-size:.9rem; transition:.2s; }
-.cal-nav button:hover { border-color:#c4787e; }
+.cal-nav button:hover { border-color:#222222; }
 .cal-month { font-family:'Playfair Display',serif; font-size:1.1rem; }
 
 .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
@@ -209,9 +209,9 @@ body {
   font-size:.8rem; cursor:pointer; border:1px solid transparent;
   transition: all .2s; border-radius:2px;
 }
-.cal-day:hover:not(.disabled):not(.empty) { border-color:#c4787e; background:rgba(196,120,126,0.08); }
-.cal-day.selected { background:#c4787e; border-color:#c4787e; color:#ffffff !important; }
-.cal-day.today { color:#c4787e; font-weight:600; }
+.cal-day:hover:not(.disabled):not(.empty) { border-color:#222222; background:rgba(0,0,0,0.07); }
+.cal-day.selected { background:#111111; border-color:#111111; color:#ffffff !important; }
+.cal-day.today { color:#111111; font-weight:600; }
 .cal-day.disabled { color:rgba(0,0,0,0.15); cursor:not-allowed; }
 .cal-day.empty { cursor:default; }
 
@@ -220,13 +220,13 @@ body {
 .slots-title { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:rgba(0,0,0,0.4); margin-bottom:.8rem; }
 .slots-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; }
 .slot {
-  padding:.7rem; text-align:center; font-size:.8rem; color:#3d2027;
-  background:#fce8ec; border:1px solid var(--border);
+  padding:.7rem; text-align:center; font-size:.8rem; color:#111111;
+  background:#f0f0f0; border:1px solid var(--border);
   cursor:pointer; transition: all .2s;
 }
-.slot:hover:not(.booked) { border-color:#c4787e; background:#fbd8de; }
-.slot.selected { background:#c4787e; border-color:#c4787e; color:#ffffff; }
-.slot.booked { background:#fce4e8; color:rgba(196,120,126,0.3); cursor:not-allowed; text-decoration:line-through; }
+.slot:hover:not(.booked) { border-color:#111111; background:#e5e5e5; }
+.slot.selected { background:#111111; border-color:#000; color:#ffffff; }
+.slot.booked { background:#e8e8e8; color:rgba(0,0,0,0.2); cursor:not-allowed; text-decoration:line-through; }
 
 /* Form */
 .form-group { margin-bottom:1.2rem; }
@@ -238,7 +238,7 @@ body {
   outline:none; transition: border .2s;
   -webkit-appearance:none;
 }
-.form-input:focus { border-color:#c4787e; }
+.form-input:focus { border-color:#444444; }
 
 /* Summary card */
 .summary-card {
@@ -253,20 +253,20 @@ body {
 /* Next btn */
 .btn-next {
   width:100%; padding:1rem;
-  background:linear-gradient(135deg, #c4787e, #a85f65); color:#ffffff;
+  background:#111111; color:#ffffff;
   border:none; cursor:pointer; font-family:'DM Sans',sans-serif;
   font-size:.8rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
   margin-top:1.5rem; transition: all .3s;
 }
-.btn-next:hover { background:linear-gradient(135deg, #d48890, #c4787e); }
-.btn-next:disabled { background:rgba(196,120,126,0.15); color:rgba(196,120,126,0.4); cursor:not-allowed; }
+.btn-next:hover { background:#333333; }
+.btn-next:disabled { background:rgba(0,0,0,0.1); color:rgba(0,0,0,0.3); cursor:not-allowed; }
 
 .btn-back {
   background:none; border:1px solid var(--border); color:rgba(0,0,0,0.5);
   padding:.7rem 1.5rem; cursor:pointer; font-family:'DM Sans',sans-serif;
   font-size:.75rem; letter-spacing:.1em; margin-top:.8rem; transition:.2s;
 }
-.btn-back:hover { border-color:#c4787e; color:#c4787e; }
+.btn-back:hover { border-color:#222222; color:#111111; }
 
 /* Success */
 .success-wrap {
@@ -281,10 +281,10 @@ body {
 .bookings-list { padding:1rem 1.5rem; display:flex; flex-direction:column; gap:1rem; }
 .booking-card {
   background:#ffffff; border:1px solid var(--border); padding:1.2rem;
-  border-left:3px solid #c4787e;
+  border-left:3px solid #222222;
 }
 .booking-card .bc-service { font-weight:600; font-size:.95rem; margin-bottom:.4rem; }
-.booking-card .bc-date { font-size:.75rem; color:#c4787e; margin-bottom:.3rem; }
+.booking-card .bc-date { font-size:.75rem; color:#111111; margin-bottom:.3rem; }
 .booking-card .bc-name { font-size:.7rem; color:rgba(0,0,0,0.4); }
 .booking-card .bc-status {
   display:inline-block; margin-top:.6rem;
@@ -298,12 +298,12 @@ body {
 .hours-content { padding:1.5rem; }
 .hours-card {
   background:#ffffff; border:1px solid var(--border); padding:1.5rem;
-  border-left:3px solid #c4787e; margin-bottom:1.5rem;
+  border-left:3px solid #000000; margin-bottom:1.5rem;
 }
 .hours-row { display:flex; justify-content:space-between; padding:.8rem 0; border-bottom:1px solid rgba(0,0,0,0.05); }
 .hours-row:last-child { border-bottom:none; }
 .hours-day { font-size:.75rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(0,0,0,0.5); }
-.hours-time { font-family:'Playfair Display',serif; font-size:1rem; color:#c4787e; }
+.hours-time { font-family:'Playfair Display',serif; font-size:1rem; color:#111111; }
 
 .contact-list { display:flex; flex-direction:column; gap:.8rem; }
 .contact-card {
@@ -311,14 +311,14 @@ body {
   background:#ffffff; border:1px solid var(--border); padding:1.1rem;
   text-decoration:none; color:#111111; transition:.2s;
 }
-.contact-card:hover { border-color:#c4787e; }
-.contact-icon { width:38px; height:38px; background:rgba(196,120,126,0.12); border:1px solid rgba(196,120,126,0.2); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
-.contact-lbl { font-size:.6rem; color:rgba(196,120,126,0.7); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.2rem; }
+.contact-card:hover { border-color:#222222; }
+.contact-icon { width:38px; height:38px; background:rgba(0,0,0,0.08); border:1px solid rgba(0,0,0,0.15); display:flex; align-items:center; justify-content:center; font-size:1.1rem; flex-shrink:0; }
+.contact-lbl { font-size:.6rem; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.2rem; }
 .contact-val { font-size:.85rem; font-weight:500; }
 
 /* ── LOADER ── */
 .loader { display:flex; justify-content:center; padding:2rem; }
-.spinner { width:28px; height:28px; border:2px solid rgba(196,120,126,0.2); border-top-color:#c4787e; border-radius:50%; animation:spin .7s linear infinite; }
+.spinner { width:28px; height:28px; border:2px solid rgba(0,0,0,0.1); border-top-color:#222222; border-radius:50%; animation:spin .7s linear infinite; }
 
 /* ── TOAST ── */
 .toast {
@@ -329,13 +329,13 @@ body {
   pointer-events:none;
 }
 .toast.show { transform:translateY(0); opacity:1; }
-.toast.success { background:#6b2d3a; border:1px solid #c4787e; color:#ffd0da; }
+.toast.success { background:#1a4a2a; border:1px solid #2a7a4a; color:#cccccc; }
 .toast.error { background:#4a1a1a; border:1px solid #7a2a2a; color:#ffaaaa; }
 
 /* ── ADMIN CARDS ── */
 .admin-card {
   background:#ffffff; border:1px solid var(--border); padding:1.2rem;
-  border-left:3px solid #c4787e;
+  border-left:3px solid #000000;
 }
 .admin-card-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.8rem; }
 .admin-service { font-weight:600; font-size:.95rem; margin-bottom:.3rem; }
@@ -353,15 +353,15 @@ body {
   padding:1rem; background:#ffffff; border:1px solid var(--border);
   cursor:pointer; transition: all .2s;
 }
-.barber-card:hover, .barber-card.selected { border-color:#c4787e; background:#fce8ec; }
-.barber-avatar { width:72px; height:72px; border-radius:50%; background:rgba(196,120,126,0.15); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.8rem; }
-.barber-card.selected .barber-avatar { border-color:#c4787e; }
+.barber-card:hover, .barber-card.selected { border-color:#111111; background:#eeeeee; }
+.barber-avatar { width:72px; height:72px; border-radius:50%; background:rgba(0,0,0,0.15); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:1.8rem; }
+.barber-card.selected .barber-avatar { border-color:#111111; }
 .barber-name { font-size:.8rem; font-weight:600; text-transform:capitalize; }
 
 /* ── TV MODE ── */
 #tv-mode {
   display:none; position:fixed; inset:0; z-index:999;
-  background:#fdf6f8; padding:1rem;
+  background:#bfe4ff; padding:1rem;
   flex-direction:column;
 }
 #tv-mode.active { display:flex; }
@@ -370,19 +370,19 @@ body {
   padding:.5rem 1rem 1rem; border-bottom:1px solid var(--border); margin-bottom:1rem;
 }
 .tv-header h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:#111111; }
-.tv-grid { flex:1; overflow-y:auto; border:1px solid rgba(196,120,126,0.3); background:#fce8ec; }
-.tv-col { background:#fff0f3; border:1px solid rgba(196,120,126,0.3); border-top:3px solid #c4787e; display:flex; flex-direction:column; overflow:hidden; }
+.tv-grid { flex:1; overflow-y:auto; border:1px solid #60a5fa; background:#b7dcff; }
+.tv-col { background:#d2ebff; border:1px solid #60a5fa; border-top:3px solid #2563eb; display:flex; flex-direction:column; overflow:hidden; }
 .tv-col-header { padding:.8rem; text-align:center; border-bottom:1px solid var(--border); }
 .tv-col-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:#111111; }
 .tv-col-count { font-size:.6rem; color:rgba(0,0,0,0.4); letter-spacing:.1em; text-transform:uppercase; margin-top:.2rem; }
 .tv-col-body { flex:1; overflow-y:auto; padding:.5rem; display:flex; flex-direction:column; gap:.5rem; }
-.tv-card { background:#fce8ec; border:1px solid rgba(196,120,126,0.3); border-left:3px solid #c4787e; padding:.7rem; }
+.tv-card { background:#dbeafe; border:1px solid #93c5fd; border-left:3px solid #3b82f6; padding:.7rem; }
 .tv-card.cancelled { border-left-color:#ff5555; border-color:rgba(255,85,85,0.3); background:#fee2e2; opacity:.5; }
 .tv-card-time { font-family:'Playfair Display',serif; font-size:1.1rem; color:#111111; }
 .tv-card-name { font-size:.8rem; font-weight:600; margin-top:.2rem; }
 .tv-card-service { font-size:.65rem; color:rgba(0,0,0,0.5); margin-top:.15rem; }
 .tv-refresh-bar { height:3px; background:rgba(0,0,0,0.08); margin-top:.5rem; }
-.tv-refresh-progress { height:100%; background:#c4787e; transition: width 30s linear; width:0%; }
+.tv-refresh-progress { height:100%; background:#222222; transition: width 30s linear; width:0%; }
 .cal-day.blocked { background:rgba(255,80,80,0.08); color:#ff8080 !important; cursor:not-allowed; border-color:rgba(255,80,80,0.2); }
 
 @keyframes fadeUp { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
@@ -393,12 +393,12 @@ body {
 <body>
 
 <!-- SPLASH SCREEN -->
-<div id="splash" style="position:fixed;inset:0;background:linear-gradient(160deg,#fde0e8,#fdf6f8,#fce4ed);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+<div id="splash" style="position:fixed;inset:0;background:#f5f5f5;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
   <div id="splash-logo" style="opacity:0;transform:scale(0.6);transition:opacity .6s ease, transform .6s cubic-bezier(0.34,1.56,0.64,1)">
-    <div style="font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;letter-spacing:.15em;font-family:'Dancing Script',cursive;background:linear-gradient(135deg,#c4787e,#a85f65,#c4787e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center">ByBangs</div>
-    <div style="text-align:center;letter-spacing:.5em;font-size:.6rem;color:#7a9e7e;text-transform:uppercase;margin-top:.3rem">WOMEN</div>
+    <div style="font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;letter-spacing:.15em;background:linear-gradient(135deg,#000000,#444444,#000000);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center">BANGS</div>
+    <div style="text-align:center;letter-spacing:.5em;font-size:.6rem;color:rgba(0,0,0,0.4);text-transform:uppercase;margin-top:.3rem">Barber Shop</div>
   </div>
-  <div id="splash-bar" style="width:0px;height:1px;background:linear-gradient(90deg,transparent,#c4787e,transparent);transition:width 1.2s ease;margin-top:1rem"></div>
+  <div id="splash-bar" style="width:0px;height:1px;background:linear-gradient(90deg,transparent,#000000,transparent);transition:width 1.2s ease;margin-top:1rem"></div>
 </div>
 
 <style>
@@ -416,19 +416,19 @@ body {
 <div class="page active" id="page-home">
   <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;width:100%">
     <div class="hero-stars"><span>★</span><span>★</span><span>★</span></div>
-    <p class="hero-label">Salon de beauté féminin</p>
-    <h1 class="hero-logo">ByBangs</h1>
-    <p class="hero-sub">Women</p>
+    <p class="hero-label">Professional Hairdressers</p>
+    <h1 class="hero-logo">BANGS</h1>
+    <p class="hero-sub">Barber Shop</p>
     <div class="hero-divider"></div>
-    <p class="hero-desc">Beauté · Élégance · Féminité</p>
+    <p class="hero-desc">Style · Précision · Excellence</p>
     <button class="btn-primary" id="btn-hero">
-      ✨ Réserver maintenant
+      ✂ Réserver maintenant
     </button>
 
     <!-- LIVE QUEUE -->
     <div id="live-queue" style="width:100%;padding:0 1rem;margin-top:.8rem;box-sizing:border-box">
       <div style="background:#ffffff;border:1px solid rgba(0,0,0,0.1);overflow:hidden">
-        <div style="font-size:.5rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;padding:.6rem;text-align:center;border-bottom:1px solid rgba(196,120,126,0.12)">🔴 Live — File d'attente</div>
+        <div style="font-size:.5rem;letter-spacing:.3em;color:#222222;text-transform:uppercase;padding:.6rem;text-align:center;border-bottom:1px solid rgba(0,0,0,0.06)">🔴 Live — File d'attente</div>
         <div id="my-ticket-banner" style="padding:0 .5rem"></div>
         <div id="queue-content" style="padding:.5rem"></div>
       </div>
@@ -451,7 +451,7 @@ body {
 
   <!-- Products Section -->
   <div style="padding:1.5rem;width:100%;box-sizing:border-box">
-    <div style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:1rem;text-align:center">🛍 Nos Produits | منتجاتنا</div>
+    <div style="font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-bottom:1rem;text-align:center">🛍 Nos Produits | منتجاتنا</div>
     <div id="products-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem"></div>
   </div>
 </div>
@@ -486,10 +486,10 @@ body {
 
   <!-- STEP 1: Service -->
   <div class="step-content active" id="step-1">
-    <div id="services-banner" style="display:none;background:#c4787e;color:#ffffff;padding:.8rem 1.2rem;margin-bottom:.8rem;border-left:3px solid #ffffff"></div>
+    <div id="services-banner" style="display:none;background:#111111;color:#ffffff;padding:.8rem 1.2rem;margin-bottom:.8rem;border-left:3px solid #ffffff"></div>
     <div class="services-list" id="services-list"></div>
     <div style="margin-top:1.5rem">
-      <label class="form-label" style="color:#111111;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase">Choisir la coiffeuse | اختاري المصففة</label>
+      <label class="form-label" style="color:#111111;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase">Choisir le coiffeur | اختر الحلاق</label>
       <div class="barbers-list" id="barbers-list"></div>
     </div>
     <button class="btn-next" id="btn-next-1" disabled>Choisir la date →</button>
@@ -531,12 +531,12 @@ body {
   <div class="step-content" id="step-4">
     <div class="summary-card">
       <div class="summary-row"><span class="summary-key">Service</span><span class="summary-val" id="sum-service">—</span></div>
-      <div class="summary-row"><span class="summary-key">Coiffeuse</span><span class="summary-val" id="sum-barber">—</span></div>
+      <div class="summary-row"><span class="summary-key">Coiffeur</span><span class="summary-val" id="sum-barber">—</span></div>
       <div class="summary-row"><span class="summary-key">Date</span><span class="summary-val" id="sum-date">—</span></div>
       <div class="summary-row"><span class="summary-key">Heure</span><span class="summary-val" id="sum-time">—</span></div>
       <div class="summary-row"><span class="summary-key">Nom</span><span class="summary-val" id="sum-name">—</span></div>
       <div class="summary-row"><span class="summary-key">Téléphone</span><span class="summary-val" id="sum-phone">—</span></div>
-      <div class="summary-row"><span class="summary-key">Prix</span><span class="summary-val" id="sum-price" style="color:#c4787e">—</span></div>
+      <div class="summary-row"><span class="summary-key">Prix</span><span class="summary-val" id="sum-price" style="color:#000000">—</span></div>
     </div>
     <button class="btn-next" id="btn-confirm">✓ Confirmer le rendez-vous</button>
     <br><button class="btn-back" id="btn-back-4">← Retour</button>
@@ -547,10 +547,10 @@ body {
     <div class="success-wrap">
       <div class="success-icon">✅</div>
       <h2>Réservé!</h2>
-      <div id="success-details" style="background:#ffffff;border:1px solid var(--border);border-left:3px solid #c4787e;padding:1.2rem;margin-bottom:1.5rem;text-align:left;width:100%"></div>
-      <p style="font-size:.8rem;color:rgba(0,0,0,0.4)">À bientôt chez ByBangs! 🌸</p>
+      <div id="success-details" style="background:#ffffff;border:1px solid var(--border);border-left:3px solid #000000;padding:1.2rem;margin-bottom:1.5rem;text-align:left;width:100%"></div>
+      <p style="font-size:.8rem;color:rgba(0,0,0,0.4)">À bientôt chez BANGS! ✂️</p>
       <button class="btn-primary" id="btn-success" style="margin-top:1.5rem">Retour à l'accueil</button>
-      <button onclick="showPage('reviews')" style="background:none;border:1px solid #c4787e;color:#c4787e;padding:.8rem 1.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;margin-top:.8rem;width:100%">⭐ Laisser un avis</button>
+      <button onclick="showPage('reviews')" style="background:none;border:1px solid #000000;color:#111111;padding:.8rem 1.5rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.1em;margin-top:.8rem;width:100%">⭐ Laisser un avis</button>
     </div>
   </div>
 </div>
@@ -562,7 +562,7 @@ body {
     <h1>Horaires & Contact</h1>
   </div>
   <div class="hours-content">
-    <p style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:.8rem">Horaires d'ouverture</p>
+    <p style="font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-bottom:.8rem">Horaires d'ouverture</p>
     <div class="hours-card">
       <div class="hours-row">
         <span class="hours-day">Samedi — Jeudi</span>
@@ -570,10 +570,10 @@ body {
       </div>
       <div class="hours-row">
         <span class="hours-day">Vendredi</span>
-        <span class="hours-time">15:00 – 22:30</span>
+        <span class="hours-time">14:15 – 22:30</span>
       </div>
     </div>
-    <p style="font-size:.6rem;letter-spacing:.3em;color:#c4787e;text-transform:uppercase;margin-bottom:.8rem">Contact</p>
+    <p style="font-size:.6rem;letter-spacing:.3em;color:#111111;text-transform:uppercase;margin-bottom:.8rem">Contact</p>
     <div class="contact-list">
       <a href="tel:0551258141" class="contact-card">
         <div class="contact-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.47 11.47 0 00.57 3.58 1 1 0 01-.25 1.01z"/></svg></div>
@@ -689,7 +689,7 @@ body {
 
     <!-- Walk-in Modal -->
     <div id="walkin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
-      <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+      <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #000000;padding:1.5rem;max-width:500px;margin:2rem auto">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
           <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000">👤 Walk-in</h2>
           <button onclick="closeWalkin()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
@@ -883,7 +883,7 @@ body {
 
 <!-- ORDER MODAL -->
 <div id="order-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
-  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #000000;padding:1.5rem;max-width:500px;margin:2rem auto">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
       <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000" id="order-product-name">Commander</h2>
       <button onclick="closeOrderModal()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
@@ -1346,6 +1346,8 @@ function renderSlots() {
   const grid = document.getElementById('slots-grid');
   const d = new Date(state.selectedDate);
   const isFri = d.getDay() === 5;
+  const fridayStartMins = 14 * 60 + 15;
+  const regularStartMins = 10 * 60;
   const now = new Date();
   const isToday = state.selectedDate === getToday();
   const currentHHMM = now.toTimeString().slice(0,5);
@@ -1369,17 +1371,18 @@ function renderSlots() {
     }
   });
 
-  const allSlots = [...new Set([...ALL_SLOTS, ...extraSlots])].sort();
+  const baseSlots = isFri ? [...ALL_SLOTS, '14:15'] : ALL_SLOTS;
+  const allSlots = [...new Set([...baseSlots, ...extraSlots])].sort();
 
   const validSlots = allSlots.filter(s => {
     const h = parseInt(s.split(':')[0]);
+    const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
     const isNight = h >= 23 || h < 4; // after 22:00
-    if (isFri && h < 15 && !extraSlots.includes(s)) return false;
-    if (!isFri && h < 10 && !extraSlots.includes(s)) return false;
+    if (isFri && slotMins < fridayStartMins && !extraSlots.includes(s)) return false;
+    if (!isFri && slotMins < regularStartMins && !extraSlots.includes(s)) return false;
     if (isNight && !extraSlots.includes(s)) return false;
     if (isToday && s <= currentHHMM) return false;
     const isBlocked = blocked.some(b => {
-      const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
       const startMins = parseInt(b.time_start.slice(0,2)) * 60 + parseInt(b.time_start.slice(3,5));
       const endMins = parseInt(b.time_end.slice(0,2)) * 60 + parseInt(b.time_end.slice(3,5));
       return slotMins >= startMins && slotMins < endMins;
@@ -2307,12 +2310,18 @@ function openWalkin() {
   const todayStr = getToday();
   const isFri = now.getDay() === 5;
   const timeSelect = document.getElementById('wi-time');
-  timeSelect.innerHTML = ALL_SLOTS
-    .filter(s => { const h = parseInt(s); return isFri ? h >= 15 : h >= 10; })
+  const fridayStartMins = 14 * 60 + 15;
+  const regularStartMins = 10 * 60;
+  const walkinSlots = isFri ? [...ALL_SLOTS, '14:15'] : ALL_SLOTS;
+  const filteredSlots = [...new Set(walkinSlots)].sort().filter(s => {
+    const slotMins = parseInt(s.slice(0,2)) * 60 + parseInt(s.slice(3,5));
+    return isFri ? slotMins >= fridayStartMins : slotMins >= regularStartMins;
+  });
+  timeSelect.innerHTML = filteredSlots
     .map(s => `<option>${s}</option>`).join('');
   // Set closest time
   const hhmm = now.toTimeString().slice(0,5);
-  const closest = ALL_SLOTS.find(s => s >= hhmm) || ALL_SLOTS[ALL_SLOTS.length-1];
+  const closest = filteredSlots.find(s => s >= hhmm) || filteredSlots[filteredSlots.length-1] || '';
   timeSelect.value = closest;
   document.getElementById('walkin-modal').style.display = 'block';
 }
@@ -3372,7 +3381,7 @@ setInterval(checkUpcomingTickets, 30000);
 
 <!-- Order Modal -->
 <div id="order-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;padding:1.5rem;overflow-y:auto">
-  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #c4787e;padding:1.5rem;max-width:500px;margin:2rem auto">
+  <div style="background:#ffffff;border:1px solid var(--border);border-top:3px solid #000000;padding:1.5rem;max-width:500px;margin:2rem auto">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
       <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#000000">🛍 Commander</h2>
       <button onclick="closeOrderModal()" style="background:none;border:none;color:rgba(0,0,0,0.5);font-size:1.2rem;cursor:pointer">✕</button>
@@ -3423,7 +3432,7 @@ setInterval(checkUpcomingTickets, 30000);
       <input class="form-input" id="edit-svc-image" type="url" placeholder="③ URL photo service" style="font-size:.8rem">
     </div>
     <div style="display:flex;gap:.7rem;margin-top:1.2rem">
-      <button onclick="saveServiceEdit()" style="flex:1;background:#c4787e;border:none;color:#ffffff;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600">✓ Enregistrer</button>
+      <button onclick="saveServiceEdit()" style="flex:1;background:#111111;border:none;color:#ffffff;padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600">✓ Enregistrer</button>
       <button onclick="closeEditServiceModal()" style="flex:1;background:none;border:1px solid rgba(0,0,0,0.15);color:rgba(0,0,0,0.5);padding:.9rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem">Annuler</button>
     </div>
   </div>
